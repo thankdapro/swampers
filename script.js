@@ -33,6 +33,34 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
+  // Animated number counters
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (isNaN(target)) return;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(target * eased).toString();
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toString() + suffix;
+    };
+    requestAnimationFrame(step);
+  };
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = 'true';
+        animateCount(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
   // Random small wobble for newspaper cards on hover entry
   document.querySelectorAll('.newspaper').forEach(paper => {
     const baseRotation = parseFloat(getComputedStyle(paper).transform);
