@@ -1,0 +1,1031 @@
+/* ============================================
+   THE SWAMPERS — Stylesheet
+   Swampy, mossy, Minecraft-inspired
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --swamp-deep: #0d1a0d;
+  --swamp-dark: #1a2a18;
+  --swamp-mid: #2d4a2a;
+  --swamp-moss: #4a6b3a;
+  --swamp-light: #7a9a4a;
+  --swamp-glow: #a8c060;
+  --murk-brown: #3a3320;
+  --murk-water: #4a5a3a;
+  --bog-mud: #2a2418;
+  --paper-old: #d4c89a;
+  --paper-dark: #8a7a4a;
+  --ink: #2a2418;
+  --discord: #5865F2;
+  --fog: rgba(180, 200, 160, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  background: var(--swamp-deep);
+  color: #d8e4c8;
+  font-size: 20px;
+  line-height: 1.5;
+  overflow-x: clip;
+  image-rendering: pixelated;
+  position: relative;
+}
+
+/* Pixelated swamp ground texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(74, 107, 58, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(58, 90, 42, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(40, 60, 35, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   FOG OVERLAY
+   ============================================ */
+.fog {
+  position: fixed;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100vh;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(160, 180, 140, 0.08), transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(140, 160, 120, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+  animation: drift 40s linear infinite;
+}
+
+.fog-2 {
+  animation-duration: 60s;
+  animation-direction: reverse;
+  opacity: 0.6;
+}
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+
+/* ============================================
+   FIREFLIES
+   ============================================ */
+.fireflies {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fireflies span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #c8e070;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #c8e070, 0 0 16px rgba(200, 224, 112, 0.5);
+  opacity: 0;
+  animation: firefly 8s infinite;
+}
+
+.fireflies span:nth-child(1)  { top: 10%; left: 15%; animation-delay: 0s; }
+.fireflies span:nth-child(2)  { top: 25%; left: 80%; animation-delay: 1s; }
+.fireflies span:nth-child(3)  { top: 45%; left: 30%; animation-delay: 2s; }
+.fireflies span:nth-child(4)  { top: 65%; left: 70%; animation-delay: 3s; }
+.fireflies span:nth-child(5)  { top: 80%; left: 20%; animation-delay: 4s; }
+.fireflies span:nth-child(6)  { top: 15%; left: 55%; animation-delay: 5s; }
+.fireflies span:nth-child(7)  { top: 55%; left: 90%; animation-delay: 1.5s; }
+.fireflies span:nth-child(8)  { top: 75%; left: 45%; animation-delay: 2.5s; }
+.fireflies span:nth-child(9)  { top: 35%; left: 10%; animation-delay: 3.5s; }
+.fireflies span:nth-child(10) { top: 90%; left: 60%; animation-delay: 4.5s; }
+
+@keyframes firefly {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  20% { opacity: 1; }
+  50% { opacity: 0.8; transform: translate(40px, -30px); }
+  80% { opacity: 0.5; }
+}
+
+/* ============================================
+   CONTAINER + UTILS
+   ============================================ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 3;
+}
+
+.section-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.8rem;
+  color: var(--swamp-glow);
+  text-align: center;
+  margin-bottom: 12px;
+  text-shadow: 3px 3px 0 var(--swamp-deep), 0 0 20px rgba(168, 192, 96, 0.3);
+  letter-spacing: 2px;
+}
+
+.section-sub {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #a8b89a;
+  margin-bottom: 48px;
+  font-style: italic;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(13, 26, 13, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--swamp-mid);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  color: var(--swamp-glow);
+  text-shadow: 2px 2px 0 var(--swamp-deep);
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  filter: drop-shadow(0 0 6px rgba(168, 192, 96, 0.6));
+  flex-shrink: 0;
+}
+
+/* ============================================
+   SVG ICONS
+   ============================================ */
+.icon-title {
+  width: 1.6rem;
+  height: 1.6rem;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  vertical-align: -0.3rem;
+  margin-right: 0.4rem;
+  filter: drop-shadow(2px 2px 0 var(--swamp-deep));
+}
+
+.icon-check {
+  width: 1.1rem;
+  height: 1.1rem;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  vertical-align: -0.15rem;
+  margin-right: 0.6rem;
+  color: #5a7d2a;
+}
+
+.icon-arrow {
+  width: 1rem;
+  height: 1rem;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  vertical-align: -0.1rem;
+  margin-left: 0.6rem;
+  color: currentColor;
+}
+
+.icon-arrow-v {
+  width: 1rem;
+  height: 1rem;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  vertical-align: -0.15rem;
+  margin: 0 0.4rem;
+  color: currentColor;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+}
+
+.nav-links a {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  text-decoration: none;
+  color: #b8c8a0;
+  padding: 8px 12px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.nav-links a:hover {
+  color: var(--swamp-glow);
+  border-color: var(--swamp-moss);
+  background: rgba(74, 107, 58, 0.2);
+  text-shadow: 0 0 10px var(--swamp-glow);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(13, 26, 13, 0.4) 0%, rgba(13, 26, 13, 0.85) 100%),
+    linear-gradient(180deg, #2a3a1a 0%, #1a2a18 40%, #0d1a0d 100%);
+}
+
+/* Pixelated swamp scene built with gradients */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    /* sun glow */
+    radial-gradient(circle at 70% 30%, rgba(200, 180, 100, 0.15) 0%, transparent 40%),
+    /* tree silhouettes */
+    linear-gradient(180deg, transparent 0%, transparent 55%, rgba(20, 30, 18, 0.4) 60%, rgba(13, 22, 13, 0.95) 100%),
+    /* water reflection at bottom */
+    linear-gradient(180deg, transparent 80%, rgba(40, 60, 35, 0.6) 100%);
+  z-index: 0;
+}
+
+/* Layered tree silhouette using clip-path */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(13, 22, 13, 0.9) 50%, var(--swamp-deep) 100%);
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* mangrove trees */
+    radial-gradient(ellipse 80px 200px at 10% 70%, var(--swamp-dark) 0%, transparent 70%),
+    radial-gradient(ellipse 120px 280px at 25% 75%, var(--swamp-dark) 0%, transparent 70%),
+    radial-gradient(ellipse 100px 240px at 85% 72%, var(--swamp-dark) 0%, transparent 70%),
+    radial-gradient(ellipse 90px 220px at 70% 78%, var(--swamp-dark) 0%, transparent 70%),
+    radial-gradient(ellipse 70px 180px at 50% 80%, var(--swamp-dark) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.hero-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(2rem, 7vw, 5rem);
+  color: #e8f0d0;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+  text-shadow:
+    4px 4px 0 var(--swamp-deep),
+    8px 8px 0 rgba(0,0,0,0.5),
+    0 0 30px rgba(168, 192, 96, 0.4);
+  line-height: 1.2;
+}
+
+.swamp-word {
+  color: var(--swamp-glow);
+  display: inline-block;
+  animation: wobble 4s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-2deg) translateY(-4px); }
+  75% { transform: rotate(2deg) translateY(2px); }
+}
+
+.hero-sub {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #b8c8a0;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.hero-tag {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  color: #8a9a78;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: var(--swamp-light);
+  letter-spacing: 2px;
+  z-index: 4;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-block;
+  padding: 16px 32px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 2px;
+  border: 3px solid;
+  transition: all 0.15s;
+  cursor: pointer;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: var(--swamp-moss);
+  border-color: var(--swamp-light);
+  color: #f0f4d8;
+  box-shadow: 4px 4px 0 var(--swamp-deep), 8px 8px 0 rgba(0,0,0,0.4);
+}
+
+.btn-primary:hover {
+  background: var(--swamp-light);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--swamp-deep), 10px 10px 0 rgba(0,0,0,0.4);
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--swamp-deep);
+}
+
+.btn-secondary {
+  background: rgba(13, 26, 13, 0.6);
+  border-color: var(--swamp-moss);
+  color: var(--swamp-glow);
+  box-shadow: 4px 4px 0 var(--swamp-deep);
+}
+
+.btn-secondary:hover {
+  background: var(--swamp-dark);
+  border-color: var(--swamp-light);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--swamp-deep);
+}
+
+.btn-large {
+  padding: 20px 40px;
+  font-size: 1rem;
+}
+
+.btn-discord {
+  background: var(--discord);
+  border-color: #4752c4;
+  color: #fff;
+  box-shadow: 4px 4px 0 #2a2a4a, 8px 8px 0 rgba(0,0,0,0.4);
+  padding: 20px 40px;
+  font-size: 1rem;
+}
+
+.btn-discord:hover {
+  background: #4752c4;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #2a2a4a, 10px 10px 0 rgba(0,0,0,0.4);
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about {
+  padding: 100px 0 80px;
+  position: relative;
+  background: linear-gradient(180deg, var(--swamp-deep) 0%, var(--swamp-dark) 100%);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #c8d4b0;
+  line-height: 1.6;
+}
+
+.about-text .section-title {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(13, 26, 13, 0.6);
+  border: 2px solid var(--swamp-mid);
+  min-width: 110px;
+}
+
+.stat strong {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.6rem;
+  color: var(--swamp-glow);
+  margin-bottom: 8px;
+}
+
+.stat span {
+  font-size: 1rem;
+  color: #a8b89a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.frame {
+  padding: 12px;
+  background: var(--bog-mud);
+  border: 4px solid var(--swamp-mid);
+  box-shadow:
+    inset 0 0 20px rgba(0,0,0,0.6),
+    8px 8px 0 var(--swamp-deep),
+    12px 12px 0 rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.frame::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 2px solid var(--swamp-moss);
+  pointer-events: none;
+}
+
+.frame-inner {
+  width: 100%;
+  height: 360px;
+  background-color: var(--swamp-mid);
+}
+
+/* Pixelated swamp scene built with CSS */
+.swamp-bg-1 {
+  background:
+    /* sky glow */
+    radial-gradient(ellipse 200px 100px at 50% 20%, rgba(180, 160, 100, 0.3) 0%, transparent 70%),
+    /* water */
+    linear-gradient(180deg, transparent 60%, rgba(40, 60, 35, 0.6) 60%, rgba(50, 70, 40, 0.8) 100%),
+    /* mangrove tree trunks */
+    linear-gradient(90deg, transparent 10%, var(--swamp-dark) 12%, var(--swamp-dark) 16%, transparent 18%),
+    linear-gradient(90deg, transparent 30%, var(--swamp-dark) 32%, var(--swamp-dark) 36%, transparent 38%),
+    linear-gradient(90deg, transparent 55%, var(--swamp-dark) 57%, var(--swamp-dark) 61%, transparent 63%),
+    linear-gradient(90deg, transparent 78%, var(--swamp-dark) 80%, var(--swamp-dark) 84%, transparent 86%),
+    /* canopy */
+    radial-gradient(ellipse 80px 50px at 14% 30%, var(--swamp-moss) 0%, var(--swamp-mid) 60%, transparent 80%),
+    radial-gradient(ellipse 90px 60px at 34% 25%, var(--swamp-moss) 0%, var(--swamp-mid) 60%, transparent 80%),
+    radial-gradient(ellipse 100px 70px at 59% 28%, var(--swamp-moss) 0%, var(--swamp-mid) 60%, transparent 80%),
+    radial-gradient(ellipse 80px 50px at 82% 32%, var(--swamp-moss) 0%, var(--swamp-mid) 60%, transparent 80%),
+    /* base */
+    linear-gradient(180deg, #3a4a2a 0%, #2a3a1a 50%, #1a2a18 100%);
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.swamp-bg-1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* lily pads */
+    radial-gradient(circle 12px at 25% 78%, var(--swamp-moss) 0%, var(--swamp-mid) 80%, transparent 100%),
+    radial-gradient(circle 10px at 60% 85%, var(--swamp-moss) 0%, var(--swamp-mid) 80%, transparent 100%),
+    radial-gradient(circle 8px at 80% 80%, var(--swamp-moss) 0%, var(--swamp-mid) 80%, transparent 100%),
+    radial-gradient(circle 14px at 45% 88%, var(--swamp-moss) 0%, var(--swamp-mid) 80%, transparent 100%);
+}
+
+/* ============================================
+   NEWS / NEWSPAPERS
+   ============================================ */
+.news {
+  padding: 100px 0;
+  background:
+    linear-gradient(180deg, var(--swamp-dark) 0%, var(--bog-mud) 100%);
+  position: relative;
+}
+
+.newspaper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.newspaper {
+  background: var(--paper-old);
+  color: var(--ink);
+  padding: 28px 24px;
+  border: 4px solid var(--paper-dark);
+  box-shadow:
+    6px 6px 0 var(--swamp-deep),
+    10px 10px 0 rgba(0,0,0,0.5);
+  position: relative;
+  transform: rotate(-1deg);
+  transition: all 0.25s;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(120, 100, 60, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(140, 110, 70, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(100, 80, 50, 0.05) 0%, transparent 60%);
+}
+
+.newspaper:nth-child(2n) {
+  transform: rotate(1.5deg);
+}
+
+.newspaper:nth-child(3n) {
+  transform: rotate(-0.5deg);
+}
+
+.newspaper:hover {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow:
+    8px 8px 0 var(--swamp-deep),
+    14px 14px 0 rgba(0,0,0,0.5);
+}
+
+.paper-header {
+  text-align: center;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.paper-title {
+  font-family: 'Special Elite', monospace;
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 4px;
+}
+
+.paper-meta {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.85rem;
+  color: #5a4a2a;
+  font-style: italic;
+}
+
+.paper-headline {
+  font-family: 'Special Elite', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.paper-body {
+  font-family: 'Special Elite', monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+.paper-byline {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #5a4a2a;
+  text-align: right;
+  border-top: 1px solid var(--paper-dark);
+  padding-top: 8px;
+}
+
+/* ============================================
+   GOVERNMENT
+   ============================================ */
+.government {
+  padding: 100px 0;
+  background:
+    linear-gradient(180deg, var(--bog-mud) 0%, var(--swamp-dark) 100%);
+}
+
+.gov-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.gov-card {
+  background: rgba(13, 26, 13, 0.7);
+  border: 3px solid var(--swamp-mid);
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0 var(--swamp-deep);
+  position: relative;
+}
+
+.gov-card::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(168, 192, 96, 0.15);
+  pointer-events: none;
+}
+
+.gov-card:hover {
+  border-color: var(--swamp-light);
+  background: rgba(26, 42, 24, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0 var(--swamp-deep), 0 0 20px rgba(168, 192, 96, 0.15);
+}
+
+.gov-avatar {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  background: var(--swamp-mid);
+  border: 3px solid var(--swamp-moss);
+  position: relative;
+  image-rendering: pixelated;
+}
+
+/* Steve-like pixelated avatars with color variations */
+.avatar-1 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #c8967a 25%, #c8967a 65%, transparent 65%),
+    linear-gradient(180deg, #6a4a2a 0%, #6a4a2a 30%, transparent 30%),
+    linear-gradient(180deg, #4a8a3a 0%, #4a8a3a 65%, #2a5a2a 65%, #2a5a2a 100%);
+}
+
+.avatar-2 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #d8a888 25%, #d8a888 65%, transparent 65%),
+    linear-gradient(180deg, #2a2018 0%, #2a2018 30%, transparent 30%),
+    linear-gradient(180deg, #3a4a8a 0%, #3a4a8a 65%, #2a3a6a 65%, #2a3a6a 100%);
+}
+
+.avatar-3 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #b88a6a 25%, #b88a6a 65%, transparent 65%),
+    linear-gradient(180deg, #4a3a2a 0%, #4a3a2a 30%, transparent 30%),
+    linear-gradient(180deg, #6a3030 0%, #6a3030 65%, #4a2020 65%, #4a2020 100%);
+}
+
+.avatar-4 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #e8b898 25%, #e8b898 65%, transparent 65%),
+    linear-gradient(180deg, #d8a040 0%, #d8a040 30%, transparent 30%),
+    linear-gradient(180deg, #6a8a3a 0%, #6a8a3a 65%, #4a6a2a 65%, #4a6a2a 100%);
+}
+
+.avatar-5 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #d0a888 25%, #d0a888 65%, transparent 65%),
+    linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 30%, transparent 30%),
+    linear-gradient(180deg, #2a8a4a 0%, #2a8a4a 65%, #1a6a2a 65%, #1a6a2a 100%);
+}
+
+.avatar-6 {
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 25%, #c89878 25%, #c89878 65%, transparent 65%),
+    linear-gradient(180deg, #8a6a3a 0%, #8a6a3a 30%, transparent 30%),
+    linear-gradient(180deg, #4a4a6a 0%, #4a4a6a 65%, #2a2a4a 65%, #2a2a4a 100%);
+}
+
+.gov-info {
+  flex: 1;
+}
+
+.gov-role {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: var(--swamp-glow);
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.gov-name {
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  color: #e0e8c8;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 0 var(--swamp-deep);
+}
+
+.gov-desc {
+  font-size: 1.05rem;
+  color: #a8b89a;
+  line-height: 1.45;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+.forms {
+  padding: 100px 0;
+  background: linear-gradient(180deg, var(--swamp-dark) 0%, var(--swamp-deep) 100%);
+  position: relative;
+}
+
+.forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-card {
+  background: var(--paper-old);
+  color: var(--ink);
+  padding: 32px 28px;
+  border: 5px solid var(--paper-dark);
+  box-shadow: 6px 6px 0 var(--swamp-deep), 12px 12px 0 rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(120, 100, 60, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(140, 110, 70, 0.08) 0%, transparent 40%);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.form-card::before,
+.form-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--paper-dark);
+  border-radius: 50%;
+  top: 10px;
+}
+
+.form-card::before { left: 10px; }
+.form-card::after { right: 10px; }
+
+.form-card:hover {
+  transform: translate(-3px, -5px);
+  box-shadow: 10px 10px 0 var(--swamp-deep), 16px 16px 0 rgba(0,0,0,0.5);
+}
+
+.form-icon {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  margin: 12px auto 16px;
+  filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.2));
+}
+
+.form-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.form-desc {
+  font-family: 'Special Elite', monospace;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #3a3018;
+  margin-bottom: 20px;
+  min-height: 75px;
+}
+
+.form-list {
+  list-style: none;
+  text-align: left;
+  font-family: 'Special Elite', monospace;
+  font-size: 1rem;
+  margin-bottom: 28px;
+  align-self: stretch;
+  padding: 16px 8px;
+  border-top: 2px dashed var(--paper-dark);
+  border-bottom: 2px dashed var(--paper-dark);
+}
+
+.form-list li {
+  padding: 4px 0;
+  color: var(--ink);
+}
+
+.form-btn {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.discord-note {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: rgba(216, 228, 200, 0.5);
+  font-style: italic;
+}
+
+/* ============================================
+   DISCORD
+   ============================================ */
+.discord {
+  padding: 100px 0;
+  background:
+    radial-gradient(ellipse at center, var(--swamp-dark) 0%, var(--swamp-deep) 100%);
+}
+
+.discord-card {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(13, 26, 13, 0.8);
+  border: 4px solid var(--discord);
+  padding: 48px 32px;
+  box-shadow:
+    0 0 30px rgba(88, 101, 242, 0.3),
+    8px 8px 0 var(--swamp-deep),
+    14px 14px 0 rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.discord-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(88, 101, 242, 0.3);
+  pointer-events: none;
+}
+
+.discord-icon {
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  margin: 0 auto 20px;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(88, 101, 242, 0.6));
+}
+
+.discord-card h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(88, 101, 242, 0.6);
+}
+
+.discord-card p {
+  font-size: 1.3rem;
+  color: #b8c8e8;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--swamp-deep);
+  padding: 40px 0 32px;
+  border-top: 4px solid var(--swamp-mid);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-left p {
+  margin-top: 8px;
+  font-family: 'Special Elite', monospace;
+  color: #8a9a78;
+  font-style: italic;
+}
+
+.footer-right {
+  text-align: right;
+  color: #8a9a78;
+  font-size: 1.05rem;
+}
+
+.footer-tag {
+  margin-top: 8px;
+  color: var(--swamp-glow);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  body { font-size: 18px; }
+  .navbar { padding: 12px 16px; }
+  .logo-text { display: none; }
+  .nav-links { gap: 12px; }
+  .nav-links a { padding: 6px 8px; font-size: 0.6rem; }
+  .section-title { font-size: 1.2rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .frame-inner { height: 240px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .btn { width: 100%; max-width: 280px; text-align: center; }
+  .footer-content { flex-direction: column; text-align: center; }
+  .footer-right { text-align: center; }
+  .form-card { padding: 24px 18px; }
+  .form-desc { min-height: auto; }
+  .gov-card { flex-direction: column; align-items: center; text-align: center; }
+}
