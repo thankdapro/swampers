@@ -3,17 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Swampers — Nation of the Murklands</title>
+  <title>SERVER INVASION — The Swampers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Press+Start+2P&family=VT323&family=Special+Elite&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a0000;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .invasion-alert {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(200, 30, 30, 0.4) 0%, rgba(40, 0, 0, 0.95) 60%, #0a0000 100%),
+        #0a0000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: invasionFlash 1.4s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    @keyframes invasionFlash {
+      0%, 100% { background-color: #0a0000; }
+      50% { background-color: #2a0000; }
+    }
+
+    .invasion-stripes {
+      height: 36px;
+      background: repeating-linear-gradient(
+        45deg,
+        #ffcc00 0,
+        #ffcc00 24px,
+        #1a1a1a 24px,
+        #1a1a1a 48px
+      );
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+      animation: stripeScroll 1s linear infinite;
+    }
+
+    .invasion-stripes--bottom { animation-direction: reverse; }
+
+    @keyframes stripeScroll {
+      from { background-position: 0 0; }
+      to { background-position: 96px 0; }
+    }
+
+    .invasion-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      gap: 20px;
+    }
+
+    .invasion-icon {
+      font-size: clamp(60px, 12vw, 130px);
+      color: #ffcc00;
+      text-shadow:
+        0 0 30px rgba(255, 204, 0, 0.8),
+        0 0 60px rgba(255, 100, 100, 0.5);
+      animation: iconPulse 0.8s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .invasion-title {
+      font-family: 'Press Start 2P', 'Inter', system-ui, sans-serif;
+      font-size: clamp(2rem, 9vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: #ff2020;
+      text-shadow:
+        0 0 20px #ff0000,
+        0 0 40px rgba(255, 0, 0, 0.8),
+        0 0 80px rgba(255, 0, 0, 0.5),
+        4px 4px 0 #000,
+        -2px -2px 0 #000;
+      line-height: 0.95;
+      animation: titleShake 0.15s linear infinite;
+    }
+
+    @keyframes titleShake {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, 1px); }
+      50% { transform: translate(2px, -1px); }
+      75% { transform: translate(-1px, 2px); }
+    }
+
+    .invasion-sub {
+      font-family: 'Press Start 2P', 'Inter', monospace;
+      font-size: clamp(1rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #ffcc00;
+      text-shadow: 0 0 16px rgba(255, 204, 0, 0.6), 2px 2px 0 #000;
+    }
+
+    .invasion-warn {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: clamp(1.4rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: #ffffff;
+      text-shadow:
+        0 0 12px #ff0000,
+        0 0 24px rgba(255, 0, 0, 0.7),
+        3px 3px 0 #800000;
+      border-top: 3px solid #ff2020;
+      border-bottom: 3px solid #ff2020;
+      padding: 10px 24px;
+      margin-top: 8px;
+      animation: warnBlink 1s steps(2, end) infinite;
+    }
+
+    @keyframes warnBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.5; }
+    }
+
+    .invasion-blink {
+      font-family: 'Press Start 2P', 'Inter', monospace;
+      font-size: clamp(0.7rem, 1.5vw, 1rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #ff4040;
+      margin-top: 16px;
+      animation: blinkFast 0.5s steps(2, end) infinite;
+    }
+
+    @keyframes blinkFast {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.2; }
+    }
+
+    @media (max-width: 700px) {
+      .invasion-stripes { height: 22px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ============================================
-       INVASION ALERT (takeover banner)
-       ============================================ -->
   <div class="invasion-alert" role="alert">
     <div class="invasion-stripes invasion-stripes--top"></div>
     <div class="invasion-content">
@@ -26,406 +168,5 @@
     <div class="invasion-stripes invasion-stripes--bottom"></div>
   </div>
 
-  <!-- ============================================
-       SVG ICON SPRITE
-       ============================================ -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-
-      <!-- FROG -->
-      <symbol id="i-frog" viewBox="0 0 16 16">
-        <rect x="2" y="2" width="3" height="1" fill="#3a5a2a"/>
-        <rect x="11" y="2" width="3" height="1" fill="#3a5a2a"/>
-        <rect x="1" y="3" width="5" height="4" fill="#5a8a3a"/>
-        <rect x="10" y="3" width="5" height="4" fill="#5a8a3a"/>
-        <rect x="2" y="4" width="3" height="2" fill="#e8f0d0"/>
-        <rect x="11" y="4" width="3" height="2" fill="#e8f0d0"/>
-        <rect x="3" y="4" width="1" height="2" fill="#0d1a0d"/>
-        <rect x="12" y="4" width="1" height="2" fill="#0d1a0d"/>
-        <rect x="0" y="7" width="16" height="7" fill="#5a8a3a"/>
-        <rect x="0" y="7" width="16" height="1" fill="#7a9a4a"/>
-        <rect x="0" y="13" width="16" height="1" fill="#3a5a2a"/>
-        <rect x="5" y="10" width="6" height="1" fill="#2a3a1a"/>
-        <rect x="4" y="8" width="1" height="1" fill="#3a5a2a"/>
-        <rect x="11" y="8" width="1" height="1" fill="#3a5a2a"/>
-      </symbol>
-
-      <!-- LEAF (modern line) -->
-      <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 9.3-3.6 15.7-8.2 17.04Z"/>
-        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
-      </symbol>
-
-      <!-- NEWSPAPER (modern line) -->
-      <symbol id="i-newspaper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
-        <path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>
-      </symbol>
-
-      <!-- BUILDING (modern line) -->
-      <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 22h18M5 22V11l7-7 7 7v11"/>
-        <path d="M10 22v-5h4v5M8 11h.01M12 11h.01M16 11h.01M8 14h.01M12 14h.01M16 14h.01"/>
-      </symbol>
-
-      <!-- SCROLL (modern line) -->
-      <symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
-        <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>
-      </symbol>
-
-      <!-- CHAT BUBBLE (modern line) -->
-      <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        <circle cx="8" cy="10" r="0.5" fill="currentColor"/>
-        <circle cx="12" cy="10" r="0.5" fill="currentColor"/>
-        <circle cx="16" cy="10" r="0.5" fill="currentColor"/>
-      </symbol>
-
-      <!-- ARROW DOWN (modern line) -->
-      <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5v14M19 12l-7 7-7-7"/>
-      </symbol>
-
-      <!-- ARROW RIGHT (modern line) -->
-      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </symbol>
-
-      <!-- CHECK (modern line) -->
-      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 6L9 17l-5-5"/>
-      </symbol>
-
-      <!-- LIGHTBULB (modern line) -->
-      <symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M15 14c.2-1 .7-1.7 1.5-2.5C17.7 10.2 18.5 9 18.5 7a6.5 6.5 0 1 0-13 0c0 2 .8 3.2 2 4.5.8.8 1.3 1.5 1.5 2.5"/>
-        <path d="M9 18h6M10 22h4"/>
-      </symbol>
-
-      <!-- FLAG (modern line) -->
-      <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/>
-      </symbol>
-
-    </defs>
-  </svg>
-
-  <!-- Fog overlay -->
-  <div class="fog"></div>
-  <div class="fog fog-2"></div>
-
-  <!-- Floating particles (fireflies) -->
-  <div class="fireflies">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <!-- NAV -->
-  <nav class="navbar">
-    <div class="logo">
-      <svg class="logo-icon" viewBox="0 0 16 16"><use href="#i-frog"/></svg>
-      <span class="logo-text">THE SWAMPERS</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#government">Gov</a></li>
-      <li><a href="#forms">Forms</a></li>
-      <li><a href="#discord">Discord</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <header id="home" class="hero">
-    <div class="hero-image" role="img" aria-label="Minecraft swamp at sunset"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-grid-pattern"></div>
-    <div class="aurora">
-      <div class="aurora-blob aurora-1"></div>
-      <div class="aurora-blob aurora-2"></div>
-      <div class="aurora-blob aurora-3"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        MINECRAFT NATION &middot; EST. DAY 1
-      </div>
-      <h1 class="hero-title">THE <span class="swamp-word">SWAMPERS</span></h1>
-      <p class="hero-sub">A Nation Forged in Mud, Moss &amp; Mangrove</p>
-      <p class="hero-tag">"In Shrek we Trust."</p>
-      <div class="hero-btns">
-        <a href="https://discord.gg/JtQ8c9pxyg" target="_blank" rel="noopener" class="btn btn-primary">JOIN THE NATION</a>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <svg class="icon-arrow-v" viewBox="0 0 24 24"><use href="#i-arrow-down"/></svg>
-      SCROLL
-      <svg class="icon-arrow-v" viewBox="0 0 24 24"><use href="#i-arrow-down"/></svg>
-    </div>
-  </header>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item"><svg viewBox="0 0 16 16"><use href="#i-frog"/></svg> IN SHREK WE TRUST</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-leaf"/></svg> 200+ CITIZENS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-building"/></svg> 5+ SETTLEMENTS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg> WEEKLY GAZETTE</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg> ACTIVE DISCORD</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-scroll"/></svg> ENROLL TODAY</span>
-      <span class="marquee-dot">&bull;</span>
-
-      <span class="marquee-item"><svg viewBox="0 0 16 16"><use href="#i-frog"/></svg> IN SHREK WE TRUST</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-leaf"/></svg> 200+ CITIZENS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-building"/></svg> 5+ SETTLEMENTS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg> WEEKLY GAZETTE</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg> ACTIVE DISCORD</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-scroll"/></svg> ENROLL TODAY</span>
-      <span class="marquee-dot">&bull;</span>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section class="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text">
-          <h2 class="section-title section-title-left">
-            <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-leaf"/></svg>
-            Welcome to the Murklands
-          </h2>
-          <p>The Swampers are a proud nation of pioneers, fishermen, and frog-tamers who have carved out a home deep in the boggy heart of the server. Where others see mud, we see opportunity. Where others see darkness, we see witch huts to raid.</p>
-          <p>Our roots run as deep as the mangrove trees, and our walls are built from the swamp itself. Join us, and become part of something slimy &mdash; and great.</p>
-          <div class="stats">
-            <div class="stat"><strong data-count="200" data-suffix="+">0</strong><span>Citizens</span></div>
-            <div class="stat"><strong data-count="5" data-suffix="+">0</strong><span>Settlements</span></div>
-          </div>
-        </div>
-        <div class="about-img">
-          <div class="frame">
-            <img class="frame-inner" src="swamp-water.webp" alt="Minecraft swamp at sunset with reflected water" loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSPAPERS -->
-  <section id="news" class="news">
-    <div class="section-bg" style="background-image: url('swamp-foggy.jpeg');"></div>
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-newspaper"/></svg>
-        Newspapers
-      </h2>
-      <p class="section-sub">Dispatches from across the server &mdash; The Swampers and allied nations.</p>
-      <p class="news-disclaimer">* please note that these are not the latest newspapers</p>
-
-      <div class="papers-grid">
-
-        <a class="paper-card paper-card--ours" href="slimey-times.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('slimey-times.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-badge">OURS</div>
-            <div class="paper-card-name">The Slimey Times</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="cherry-bomb.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('cherry-bomb.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">The Daily Cherry-Bomb</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="icy-news.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('icy-news.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Icy News</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="cactus-news.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('cactus-news.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Cactus News Network</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="emerald-report.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('emerald-report.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">The Emerald Report</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="glacial-press.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('glacial-press.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Glacial Press</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="fatui-announcement.png" target="_blank" rel="noopener">
-          <div class="paper-card-img" style="background-image: url('fatui-announcement.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Fatui Announcement</div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- GOVERNMENT -->
-  <section id="government" class="government">
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-building"/></svg>
-        Our Government
-      </h2>
-      <p class="section-sub">The elected officials governing The Swampers Nation</p>
-
-      <div class="gov-grid">
-
-        <div class="gov-card">
-          <div class="gov-info">
-            <div class="gov-role">PRESIDENT</div>
-            <div class="gov-name">UI For Squid</div>
-            <p class="gov-desc">First president of The Swampers. Won the inaugural election in a landslide with 83 of 93 votes. Local friend and diplomat.</p>
-          </div>
-        </div>
-
-        <a class="gov-card gov-card--open" href="https://forms.gle/JLR2vx3ZUDLES3Sq7" target="_blank" rel="noopener">
-          <div class="gov-info">
-            <div class="gov-role">VICE PRESIDENT</div>
-            <div class="gov-name">Spot Open</div>
-            <p class="gov-desc">This position is currently vacant. Click to apply via the role enrollment form.</p>
-            <span class="gov-cta">
-              Apply for role
-              <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <div class="gov-card">
-          <div class="gov-info">
-            <div class="gov-role">CABINET</div>
-            <div class="gov-name">BurgerMan</div>
-            <p class="gov-desc">Founding member of The Swampers. Currently serving in the cabinet.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FORMS -->
-  <section id="forms" class="forms">
-    <div class="section-bg" style="background-image: url('swamp-forest.webp');"></div>
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-scroll"/></svg>
-        Forms
-      </h2>
-      <p class="section-sub">Official Swamper paperwork &mdash; fill out, submit, get murky.</p>
-
-      <div class="forms-grid">
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-scroll"/></svg>
-          <h3 class="form-title">ROLE ENROLLMENT</h3>
-          <p class="form-desc">Apply for an official role in the nation &mdash; from government cabinet to specialized civilian work.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Government role</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Cabinet / ministry seat</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Specialized civilian job</li>
-          </ul>
-          <a href="https://forms.gle/JLR2vx3ZUDLES3Sq7" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            FILL OUT
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-bulb"/></svg>
-          <h3 class="form-title">NATION IDEAS</h3>
-          <p class="form-desc">Got a vision for the swamp? Propose new buildings, events, laws, or expansions.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>New build proposals</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Event suggestions</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Law &amp; policy ideas</li>
-          </ul>
-          <a href="https://forms.gle/VL9W7FVaeqD2aqKe7" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            SUBMIT IDEA
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-flag"/></svg>
-          <h3 class="form-title">PLAYER REPORT</h3>
-          <p class="form-desc">Witnessed griefing, theft, or a treaty violation? File a confidential report with the council.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Griefing &amp; theft</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Harassment</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Treaty violations</li>
-          </ul>
-          <a href="https://forms.gle/HnAFFXXyVLVL4deA9" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            FILE REPORT
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- DISCORD -->
-  <section id="discord" class="discord">
-    <div class="container">
-      <div class="discord-card">
-        <svg class="discord-icon" viewBox="0 0 24 24"><use href="#i-chat"/></svg>
-        <h2>JOIN OUR DISCORD</h2>
-        <p>Chat with fellow Swampers, get raid alerts, attend frog council meetings, and stay in the loop.</p>
-        <a href="https://discord.gg/JtQ8c9pxyg" target="_blank" rel="noopener" class="btn btn-discord">
-          CLICK TO JOIN
-          <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <div class="footer-left">
-        <div class="logo">
-          <svg class="logo-icon" viewBox="0 0 16 16"><use href="#i-frog"/></svg>
-          <span class="logo-text">THE SWAMPERS</span>
-        </div>
-        <p>In Shrek we Trust.</p>
-      </div>
-      <div class="footer-right">
-        <p>&copy; The Swampers Nation</p>
-        <p>Established Day 1 of the Server</p>
-        <p class="footer-tag">Mud. Moss. Mangrove. Forever.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
