@@ -3,170 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Going Live Soon — The Swampers</title>
+  <title>Coming Soon — The Swampers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a1408;
+      --bg-mid: #142a18;
+      --glow: #a8e060;
+      --glow-bright: #c8ff70;
+      --text-soft: #c8d4b0;
+      --text-muted: #8aa078;
+    }
 
     html, body {
       height: 100%;
       overflow: hidden;
-      background: #051008;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      color: var(--text-soft);
+      -webkit-font-smoothing: antialiased;
+      background: var(--bg-deep);
     }
 
-    .invasion-alert {
+    .stage {
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse at center, rgba(80, 200, 60, 0.35) 0%, rgba(10, 40, 15, 0.95) 60%, #051008 100%),
-        #051008;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      animation: invasionFlash 1.4s ease-in-out infinite;
-      overflow: hidden;
-    }
-
-    @keyframes invasionFlash {
-      0%, 100% { background-color: #051008; }
-      50% { background-color: #0c2818; }
-    }
-
-    .invasion-stripes {
-      height: 36px;
-      background: repeating-linear-gradient(
-        45deg,
-        #a8e060 0,
-        #a8e060 24px,
-        #102818 24px,
-        #102818 48px
-      );
-      box-shadow: 0 0 20px rgba(168, 224, 96, 0.4);
-      animation: stripeScroll 1s linear infinite;
-    }
-
-    .invasion-stripes--bottom { animation-direction: reverse; }
-
-    @keyframes stripeScroll {
-      from { background-position: 0 0; }
-      to { background-position: 96px 0; }
-    }
-
-    .invasion-content {
-      flex: 1;
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(168, 224, 96, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 80%, rgba(120, 180, 60, 0.12) 0%, transparent 70%),
+        var(--bg-deep);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 24px;
-      gap: 20px;
+      padding: 40px 24px;
+      gap: 28px;
     }
 
-    .invasion-icon {
-      font-size: clamp(60px, 12vw, 130px);
-      color: #c8ff60;
-      text-shadow:
-        0 0 30px rgba(168, 224, 96, 0.8),
-        0 0 60px rgba(100, 255, 100, 0.5);
-      animation: iconPulse 0.8s ease-in-out infinite;
+    /* Floating soft orbs (firefly-like, calm) */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 224, 96, 0.3) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb-1 { width: 340px; height: 340px; top: 10%; left: 8%; }
+    .orb-2 { width: 280px; height: 280px; bottom: 12%; right: 10%; animation-delay: -4s; animation-duration: 16s; }
+    .orb-3 { width: 220px; height: 220px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+      50%      { transform: translate(30px, -20px); opacity: 1; }
+    }
+    .orb-3 { animation-name: float3; }
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      50%      { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
     }
 
-    @keyframes iconPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+    /* Frog mark — pixel logo, bobbing */
+    .frog {
+      width: 96px;
+      height: 96px;
+      image-rendering: pixelated;
+      shape-rendering: crispEdges;
+      animation: bob 3.4s ease-in-out infinite;
+      filter: drop-shadow(0 8px 24px rgba(168, 224, 96, 0.35));
+      position: relative;
+      z-index: 1;
     }
 
-    .invasion-title {
-      font-family: 'Press Start 2P', 'Inter', system-ui, sans-serif;
-      font-size: clamp(2rem, 9vw, 7rem);
-      font-weight: 900;
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* Status pill */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--glow);
+      background: rgba(168, 224, 96, 0.08);
+      border: 1px solid rgba(168, 224, 96, 0.3);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--glow-bright);
+      box-shadow: 0 0 8px var(--glow-bright), 0 0 16px rgba(200, 255, 112, 0.6);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .title {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 800;
       letter-spacing: -2px;
-      color: #7fff40;
-      text-shadow:
-        0 0 20px #5fff00,
-        0 0 40px rgba(120, 255, 60, 0.8),
-        0 0 80px rgba(120, 255, 60, 0.5),
-        4px 4px 0 #0a1408,
-        -2px -2px 0 #0a1408;
-      line-height: 0.95;
-      animation: titleShake 0.15s linear infinite;
+      line-height: 1;
+      background: linear-gradient(180deg, #e8f8c8 0%, var(--glow) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(168, 224, 96, 0.4));
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes titleShake {
-      0%, 100% { transform: translate(0, 0); }
-      25% { transform: translate(-2px, 1px); }
-      50% { transform: translate(2px, -1px); }
-      75% { transform: translate(-1px, 2px); }
+    .subtitle {
+      font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+      font-weight: 500;
+      max-width: 540px;
+      color: var(--text-soft);
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
     }
 
-    .invasion-sub {
-      font-family: 'Press Start 2P', 'Inter', monospace;
-      font-size: clamp(1rem, 2.5vw, 1.8rem);
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: #c8ff60;
-      text-shadow: 0 0 16px rgba(168, 224, 96, 0.6), 2px 2px 0 #0a1408;
-    }
-
-    .invasion-warn {
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: clamp(1.4rem, 4vw, 3rem);
-      font-weight: 900;
-      letter-spacing: 6px;
-      color: #ffffff;
-      text-shadow:
-        0 0 12px #5fff00,
-        0 0 24px rgba(120, 255, 60, 0.7),
-        3px 3px 0 #1a3a18;
-      border-top: 3px solid #7fff40;
-      border-bottom: 3px solid #7fff40;
-      padding: 10px 24px;
+    .dots {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
       margin-top: 8px;
-      animation: warnBlink 1s steps(2, end) infinite;
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes warnBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.5; }
+    .dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--glow);
+      opacity: 0.3;
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+    .dots span:nth-child(1) { animation-delay: 0s; }
+    .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.4); }
     }
 
-    .invasion-blink {
-      font-family: 'Press Start 2P', 'Inter', monospace;
-      font-size: clamp(0.7rem, 1.5vw, 1rem);
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: #7fff40;
-      margin-top: 16px;
-      animation: blinkFast 0.5s steps(2, end) infinite;
+    .footer-line {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-top: 24px;
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes blinkFast {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.2; }
-    }
-
-    @media (max-width: 700px) {
-      .invasion-stripes { height: 22px; }
+    .footer-line em {
+      font-style: italic;
+      color: var(--glow);
     }
   </style>
 </head>
 <body>
+  <div class="stage">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-  <div class="invasion-alert" role="alert">
-    <div class="invasion-stripes invasion-stripes--top"></div>
-    <div class="invasion-content">
-      <div class="invasion-icon">&#9888;</div>
-      <h1 class="invasion-title">INCOMING</h1>
-      <div class="invasion-sub">&mdash; SWAMP NATION RISING &mdash;</div>
-      <div class="invasion-warn">GOING LIVE SOON</div>
-      <div class="invasion-blink">&#9679; STANDBY &#9679; STANDBY &#9679; STANDBY &#9679;</div>
+    <svg class="frog" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-label="The Swampers logo">
+      <rect x="2" y="2" width="3" height="1" fill="#3a5a2a"/>
+      <rect x="11" y="2" width="3" height="1" fill="#3a5a2a"/>
+      <rect x="1" y="3" width="5" height="4" fill="#5a8a3a"/>
+      <rect x="10" y="3" width="5" height="4" fill="#5a8a3a"/>
+      <rect x="2" y="4" width="3" height="2" fill="#e8f0d0"/>
+      <rect x="11" y="4" width="3" height="2" fill="#e8f0d0"/>
+      <rect x="3" y="4" width="1" height="2" fill="#0d1a0d"/>
+      <rect x="12" y="4" width="1" height="2" fill="#0d1a0d"/>
+      <rect x="0" y="7" width="16" height="7" fill="#5a8a3a"/>
+      <rect x="0" y="7" width="16" height="1" fill="#7a9a4a"/>
+      <rect x="0" y="13" width="16" height="1" fill="#3a5a2a"/>
+      <rect x="5" y="10" width="6" height="1" fill="#2a3a1a"/>
+      <rect x="4" y="8" width="1" height="1" fill="#3a5a2a"/>
+      <rect x="11" y="8" width="1" height="1" fill="#3a5a2a"/>
+    </svg>
+
+    <div class="pill">
+      <span class="pill-dot"></span>
+      The Swampers
     </div>
-    <div class="invasion-stripes invasion-stripes--bottom"></div>
-  </div>
 
+    <h1 class="title">Coming Soon</h1>
+
+    <p class="subtitle">The swamp is bubbling and the frogs are tuning up.<br />We&rsquo;re putting the finishing touches on the nation.</p>
+
+    <div class="dots" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+
+    <p class="footer-line">See you in the swamp &mdash; <em>In Squid and Swamp and Shrek we Trust.</em></p>
+  </div>
 </body>
 </html>
