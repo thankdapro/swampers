@@ -9,6 +9,152 @@
   box-sizing: border-box;
 }
 
+/* ============================================
+   INVASION ALERT — full-screen takeover
+   ============================================ */
+.invasion-alert {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background:
+    radial-gradient(ellipse at center, rgba(200, 30, 30, 0.4) 0%, rgba(40, 0, 0, 0.95) 60%, #0a0000 100%),
+    #0a0000;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  font-family: 'Inter', 'Press Start 2P', system-ui, sans-serif;
+  animation: invasionFlash 1.4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+@keyframes invasionFlash {
+  0%, 100% { background-color: #0a0000; }
+  50% { background-color: #2a0000; }
+}
+
+.invasion-stripes {
+  height: 36px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffcc00 0,
+    #ffcc00 24px,
+    #1a1a1a 24px,
+    #1a1a1a 48px
+  );
+  box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+  animation: stripeScroll 1s linear infinite;
+}
+
+.invasion-stripes--bottom { animation-direction: reverse; }
+
+@keyframes stripeScroll {
+  from { background-position: 0 0; }
+  to { background-position: 96px 0; }
+}
+
+.invasion-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  gap: 20px;
+}
+
+.invasion-icon {
+  font-size: clamp(60px, 12vw, 130px);
+  color: #ffcc00;
+  text-shadow: 0 0 30px rgba(255, 204, 0, 0.8), 0 0 60px rgba(255, 100, 100, 0.5);
+  animation: iconPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.invasion-title {
+  font-family: 'Press Start 2P', 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 10vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: #ff2020;
+  text-shadow:
+    0 0 20px #ff0000,
+    0 0 40px rgba(255, 0, 0, 0.8),
+    0 0 80px rgba(255, 0, 0, 0.5),
+    4px 4px 0 #000,
+    -2px -2px 0 #000;
+  line-height: 0.95;
+  animation: titleShake 0.15s linear infinite;
+}
+
+@keyframes titleShake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(2px, -1px); }
+  75% { transform: translate(-1px, 2px); }
+}
+
+.invasion-sub {
+  font-family: 'Press Start 2P', 'Inter', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #ffcc00;
+  text-shadow: 0 0 16px rgba(255, 204, 0, 0.6), 2px 2px 0 #000;
+}
+
+.invasion-warn {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.4rem, 4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: #ffffff;
+  text-shadow:
+    0 0 12px #ff0000,
+    0 0 24px rgba(255, 0, 0, 0.7),
+    3px 3px 0 #800000;
+  border-top: 3px solid #ff2020;
+  border-bottom: 3px solid #ff2020;
+  padding: 10px 24px;
+  margin-top: 8px;
+  animation: warnBlink 1s steps(2, end) infinite;
+}
+
+@keyframes warnBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.5; }
+}
+
+.invasion-blink {
+  font-family: 'Press Start 2P', 'Inter', monospace;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #ff4040;
+  margin-top: 16px;
+  animation: blinkFast 0.5s steps(2, end) infinite;
+}
+
+@keyframes blinkFast {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.2; }
+}
+
+/* Lock scroll while alert is up */
+body:has(.invasion-alert) {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+@media (max-width: 700px) {
+  .invasion-stripes { height: 22px; }
+}
+
 :root {
   --swamp-deep: #0d1a0d;
   --swamp-dark: #1a2a18;
