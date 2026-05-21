@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SERVER INVASION — The Swampers</title>
+  <title>Going Live Soon — The Swampers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background: #0a0000;
+      background: #051008;
       font-family: 'Inter', system-ui, sans-serif;
     }
 
@@ -21,8 +21,8 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse at center, rgba(200, 30, 30, 0.4) 0%, rgba(40, 0, 0, 0.95) 60%, #0a0000 100%),
-        #0a0000;
+        radial-gradient(ellipse at center, rgba(80, 200, 60, 0.35) 0%, rgba(10, 40, 15, 0.95) 60%, #051008 100%),
+        #051008;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -31,20 +31,20 @@
     }
 
     @keyframes invasionFlash {
-      0%, 100% { background-color: #0a0000; }
-      50% { background-color: #2a0000; }
+      0%, 100% { background-color: #051008; }
+      50% { background-color: #0c2818; }
     }
 
     .invasion-stripes {
       height: 36px;
       background: repeating-linear-gradient(
         45deg,
-        #ffcc00 0,
-        #ffcc00 24px,
-        #1a1a1a 24px,
-        #1a1a1a 48px
+        #a8e060 0,
+        #a8e060 24px,
+        #102818 24px,
+        #102818 48px
       );
-      box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+      box-shadow: 0 0 20px rgba(168, 224, 96, 0.4);
       animation: stripeScroll 1s linear infinite;
     }
 
@@ -68,10 +68,10 @@
 
     .invasion-icon {
       font-size: clamp(60px, 12vw, 130px);
-      color: #ffcc00;
+      color: #c8ff60;
       text-shadow:
-        0 0 30px rgba(255, 204, 0, 0.8),
-        0 0 60px rgba(255, 100, 100, 0.5);
+        0 0 30px rgba(168, 224, 96, 0.8),
+        0 0 60px rgba(100, 255, 100, 0.5);
       animation: iconPulse 0.8s ease-in-out infinite;
     }
 
@@ -85,13 +85,13 @@
       font-size: clamp(2rem, 9vw, 7rem);
       font-weight: 900;
       letter-spacing: -2px;
-      color: #ff2020;
+      color: #7fff40;
       text-shadow:
-        0 0 20px #ff0000,
-        0 0 40px rgba(255, 0, 0, 0.8),
-        0 0 80px rgba(255, 0, 0, 0.5),
-        4px 4px 0 #000,
-        -2px -2px 0 #000;
+        0 0 20px #5fff00,
+        0 0 40px rgba(120, 255, 60, 0.8),
+        0 0 80px rgba(120, 255, 60, 0.5),
+        4px 4px 0 #0a1408,
+        -2px -2px 0 #0a1408;
       line-height: 0.95;
       animation: titleShake 0.15s linear infinite;
     }
@@ -108,8 +108,8 @@
       font-size: clamp(1rem, 2.5vw, 1.8rem);
       font-weight: 700;
       letter-spacing: 4px;
-      color: #ffcc00;
-      text-shadow: 0 0 16px rgba(255, 204, 0, 0.6), 2px 2px 0 #000;
+      color: #c8ff60;
+      text-shadow: 0 0 16px rgba(168, 224, 96, 0.6), 2px 2px 0 #0a1408;
     }
 
     .invasion-warn {
@@ -119,11 +119,11 @@
       letter-spacing: 6px;
       color: #ffffff;
       text-shadow:
-        0 0 12px #ff0000,
-        0 0 24px rgba(255, 0, 0, 0.7),
-        3px 3px 0 #800000;
-      border-top: 3px solid #ff2020;
-      border-bottom: 3px solid #ff2020;
+        0 0 12px #5fff00,
+        0 0 24px rgba(120, 255, 60, 0.7),
+        3px 3px 0 #1a3a18;
+      border-top: 3px solid #7fff40;
+      border-bottom: 3px solid #7fff40;
       padding: 10px 24px;
       margin-top: 8px;
       animation: warnBlink 1s steps(2, end) infinite;
@@ -139,7 +139,7 @@
       font-size: clamp(0.7rem, 1.5vw, 1rem);
       font-weight: 700;
       letter-spacing: 4px;
-      color: #ff4040;
+      color: #7fff40;
       margin-top: 16px;
       animation: blinkFast 0.5s steps(2, end) infinite;
     }
@@ -160,10 +160,10 @@
     <div class="invasion-stripes invasion-stripes--top"></div>
     <div class="invasion-content">
       <div class="invasion-icon">&#9888;</div>
-      <h1 class="invasion-title">UNAVAILABLE</h1>
-      <div class="invasion-sub">&mdash; SERVER INVASION &mdash;</div>
-      <div class="invasion-warn">THIS IS NOT A DRILL</div>
-      <div class="invasion-blink">&#9679; ALERT &#9679; ALERT &#9679; ALERT &#9679;</div>
+      <h1 class="invasion-title">INCOMING</h1>
+      <div class="invasion-sub">&mdash; SWAMP NATION RISING &mdash;</div>
+      <div class="invasion-warn">GOING LIVE SOON</div>
+      <div class="invasion-blink">&#9679; STANDBY &#9679; STANDBY &#9679; STANDBY &#9679;</div>
     </div>
     <div class="invasion-stripes invasion-stripes--bottom"></div>
   </div>
