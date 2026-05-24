@@ -61,6 +61,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
 
+  // Paper lightbox modal
+  const modal = document.getElementById('paperModal');
+  if (modal) {
+    const modalImg = modal.querySelector('.paper-modal-img');
+    const modalCaption = modal.querySelector('.paper-modal-caption');
+    const closeBtn = modal.querySelector('.paper-modal-close');
+
+    const openModal = (src, caption) => {
+      modalImg.src = src;
+      modalImg.alt = caption;
+      modalCaption.textContent = caption;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      setTimeout(() => { modalImg.src = ''; }, 250);
+    };
+
+    document.querySelectorAll('.paper-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = card.getAttribute('href');
+        const name = card.querySelector('.paper-card-name')?.textContent || '';
+        openModal(href, name);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  }
+
   // Random small wobble for newspaper cards on hover entry
   document.querySelectorAll('.newspaper').forEach(paper => {
     const baseRotation = parseFloat(getComputedStyle(paper).transform);
