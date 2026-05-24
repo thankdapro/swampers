@@ -1558,21 +1558,21 @@ body.modal-open { overflow: hidden; }
 }
 
 .news-cta-icon {
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(168, 192, 96, 0.1);
   border: 1px solid rgba(168, 192, 96, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
   color: var(--swamp-glow);
   margin-bottom: 4px;
 }
 
 .news-cta-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
 }
 
 .news-cta-title {
@@ -1702,64 +1702,69 @@ body.modal-open { overflow: hidden; }
 
 /* Modern icon defaults — round, scale, color */
 .icon-title {
-  width: 1.6rem !important;
-  height: 1.6rem !important;
-  image-rendering: auto !important;
-  shape-rendering: auto !important;
-  vertical-align: -0.35rem !important;
-  margin-right: 0.6rem !important;
-  filter: none !important;
-  color: var(--swamp-glow);
-  stroke-width: 1.75;
-}
-
-.icon-check {
-  width: 1.05rem !important;
-  height: 1.05rem !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
   image-rendering: auto !important;
   shape-rendering: auto !important;
   vertical-align: -0.18rem !important;
-  margin-right: 0.55rem !important;
+  margin-right: 0.5rem !important;
+  filter: none !important;
+  color: var(--swamp-glow);
+  stroke-width: 1.75;
+  opacity: 0.85;
+}
+
+.icon-check {
+  width: 0.95rem !important;
+  height: 0.95rem !important;
+  image-rendering: auto !important;
+  shape-rendering: auto !important;
+  vertical-align: -0.15rem !important;
+  margin-right: 0.5rem !important;
 }
 
 .icon-arrow {
-  width: 1.1rem !important;
-  height: 1.1rem !important;
+  width: 1rem !important;
+  height: 1rem !important;
   image-rendering: auto !important;
   shape-rendering: auto !important;
-  vertical-align: -0.2rem !important;
+  vertical-align: -0.18rem !important;
   transition: transform 0.2s ease;
 }
 
 .icon-arrow-v {
   image-rendering: auto !important;
   shape-rendering: auto !important;
+  width: 0.85rem;
+  height: 0.85rem;
 }
 
 .form-icon {
-  width: 44px !important;
-  height: 44px !important;
+  width: 28px !important;
+  height: 28px !important;
   image-rendering: auto !important;
   shape-rendering: auto !important;
-  color: #2a4a1a;
+  color: var(--swamp-glow);
   filter: none !important;
-  padding: 10px;
-  background: rgba(90, 138, 58, 0.12);
-  border-radius: 12px;
+  padding: 8px;
+  background: rgba(168, 192, 96, 0.08);
+  border: 1px solid rgba(168, 192, 96, 0.15);
+  border-radius: 10px;
   box-sizing: content-box;
 }
 
 .discord-icon {
-  width: 56px !important;
-  height: 56px !important;
+  width: 32px !important;
+  height: 32px !important;
   image-rendering: auto !important;
   shape-rendering: auto !important;
   color: #ffffff;
-  padding: 14px;
+  padding: 10px;
   background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
-  border-radius: 18px;
-  margin: 0 auto 24px !important;
-  box-shadow: 0 8px 32px rgba(88, 101, 242, 0.4);
+  border-radius: 12px;
+  margin: 0 auto 16px !important;
+  box-shadow: 0 6px 18px rgba(88, 101, 242, 0.35);
+  box-sizing: content-box;
 }
 
 .marquee-item svg {
@@ -2145,16 +2150,58 @@ a.gov-card {
 }
 
 .discord-card {
+  max-width: 520px !important;
   border-radius: 20px !important;
   border-width: 1px !important;
-  border-color: rgba(88, 101, 242, 0.3) !important;
-  box-shadow: 0 8px 32px rgba(88, 101, 242, 0.2), 0 24px 64px rgba(0,0,0,0.4) !important;
-  background: linear-gradient(180deg, rgba(20, 28, 60, 0.5) 0%, rgba(13, 26, 13, 0.8) 100%) !important;
+  border-color: rgba(168, 192, 96, 0.18) !important;
+  padding: 36px 28px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 24px 64px rgba(0,0,0,0.25) !important;
+  background: rgba(20, 32, 18, 0.55) !important;
   backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .discord-card::before {
   display: none;
+}
+
+.discord-card h2 {
+  margin-bottom: 8px !important;
+}
+
+.discord-card p {
+  margin-bottom: 20px;
+  font-size: 0.95rem !important;
+  max-width: 380px;
+}
+
+.discord-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--swamp-glow);
+  background: rgba(168, 192, 96, 0.08);
+  border: 1px solid rgba(168, 192, 96, 0.25);
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.discord-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--swamp-glow);
+  box-shadow: 0 0 6px var(--swamp-glow);
+  animation: badgePulse 2s ease-in-out infinite;
 }
 
 /* Hero title — keep the pixel feel but reduce shadow harshness */
