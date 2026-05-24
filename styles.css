@@ -1534,7 +1534,69 @@ body::before {
 body.modal-open { overflow: hidden; }
 
 /* ============================================
-   NEWSPAPERS GRID
+   NEWS CTA (submit your newspaper)
+   ============================================ */
+.news-cta {
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 48px 36px;
+  background: rgba(20, 32, 18, 0.55);
+  border: 1px solid rgba(168, 192, 96, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.news-cta:hover {
+  border-color: rgba(168, 192, 96, 0.3);
+}
+
+.news-cta-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(168, 192, 96, 0.1);
+  border: 1px solid rgba(168, 192, 96, 0.2);
+  border-radius: 16px;
+  color: var(--swamp-glow);
+  margin-bottom: 4px;
+}
+
+.news-cta-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.news-cta-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #e8f0d0;
+  line-height: 1.25;
+  max-width: 460px;
+}
+
+.news-cta-desc {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #b8c8a0;
+  line-height: 1.55;
+  max-width: 440px;
+  margin-bottom: 8px;
+}
+
+/* ============================================
+   NEWSPAPERS GRID (legacy - hidden when no .papers-grid)
    ============================================ */
 .news-disclaimer {
   text-align: center;
@@ -1946,6 +2008,29 @@ a.gov-card {
   height: 0.95rem;
 }
 
+.gov-members {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 14px;
+  padding: 0;
+}
+
+.gov-members li {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--swamp-glow);
+  background: rgba(168, 192, 96, 0.08);
+  border: 1px solid rgba(168, 192, 96, 0.25);
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+}
+
 .gov-card::before {
   display: none;
 }
@@ -2121,4 +2206,46 @@ a.gov-card {
   .form-card { padding: 24px 18px; }
   .form-desc { min-height: auto; }
   .gov-card { flex-direction: column; align-items: center; text-align: center; }
+}
+
+/* ============================================
+   DISABLED BUTTONS (Discord locked until launch)
+   ============================================ */
+.btn-disabled {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  background: rgba(40, 50, 38, 0.55) !important;
+  background-image: none !important;
+  border-color: rgba(168, 192, 96, 0.18) !important;
+  color: #8aa078 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.btn-disabled:hover,
+.btn-disabled:focus {
+  background: rgba(40, 50, 38, 0.55) !important;
+  border-color: rgba(168, 192, 96, 0.18) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.icon-lock {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.hero-locked-note {
+  margin-top: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #8aa078;
+  letter-spacing: 0.2px;
+  max-width: 360px;
 }

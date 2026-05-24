@@ -141,7 +141,15 @@
       <p class="hero-sub">A Nation Forged in Mud, Moss &amp; Mangrove</p>
       <p class="hero-tag">"In Squid and Swamp and Shrek we Trust."</p>
       <div class="hero-btns">
-        <a href="https://discord.gg/JtQ8c9pxyg" target="_blank" rel="noopener" class="btn btn-primary">JOIN THE NATION</a>
+        <!-- When server launches, restore href: https://discord.gg/JCM2B7ue4E -->
+        <a class="btn btn-primary btn-disabled" aria-disabled="true" tabindex="-1">
+          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          JOIN THE NATION
+        </a>
+        <p class="hero-locked-note">Opens when immigration laws are set &amp; the server launches.</p>
       </div>
     </div>
     <div class="hero-scroll">
@@ -215,61 +223,18 @@
         <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-newspaper"/></svg>
         Newspapers
       </h2>
-      <p class="section-sub">Dispatches from across the server &mdash; The Swampers and allied nations.</p>
-      <p class="news-disclaimer">* please note that these are not the latest newspapers</p>
+      <p class="section-sub">Got a paper? We'll feature it.</p>
 
-      <div class="papers-grid">
-
-        <a class="paper-card paper-card--ours" href="slimey-times.png">
-          <div class="paper-card-img" style="background-image: url('slimey-times.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-badge">OURS</div>
-            <div class="paper-card-name">The Slimey Times</div>
-          </div>
+      <div class="news-cta">
+        <div class="news-cta-icon">
+          <svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg>
+        </div>
+        <h3 class="news-cta-title">Want your paper to show up here?</h3>
+        <p class="news-cta-desc">Submit your nation's paper through the form and it'll be featured in this section.</p>
+        <a href="https://forms.gle/evd3j6DqZv7u6Ley9" target="_blank" rel="noopener" class="btn btn-primary btn-large">
+          SUBMIT PAPER
+          <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
         </a>
-
-        <a class="paper-card" href="cherry-bomb.png">
-          <div class="paper-card-img" style="background-image: url('cherry-bomb.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">The Daily Cherry-Bomb</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="icy-news.png">
-          <div class="paper-card-img" style="background-image: url('icy-news.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Icy News</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="cactus-news.png">
-          <div class="paper-card-img" style="background-image: url('cactus-news.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Cactus News Network</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="emerald-report.png">
-          <div class="paper-card-img" style="background-image: url('emerald-report.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">The Emerald Report</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="glacial-press.png">
-          <div class="paper-card-img" style="background-image: url('glacial-press.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Glacial Press</div>
-          </div>
-        </a>
-
-        <a class="paper-card" href="fatui-announcement.png">
-          <div class="paper-card-img" style="background-image: url('fatui-announcement.png');"></div>
-          <div class="paper-card-meta">
-            <div class="paper-card-name">Fatui Announcement</div>
-          </div>
-        </a>
-
       </div>
     </div>
   </section>
@@ -293,23 +258,17 @@
           </div>
         </div>
 
-        <a class="gov-card gov-card--open" href="https://forms.gle/JLR2vx3ZUDLES3Sq7" target="_blank" rel="noopener">
-          <div class="gov-info">
-            <div class="gov-role">VICE PRESIDENT</div>
-            <div class="gov-name">Spot Open</div>
-            <p class="gov-desc">This position is currently vacant. Click to apply via the role enrollment form.</p>
-            <span class="gov-cta">
-              Apply for role
-              <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-            </span>
-          </div>
-        </a>
-
         <div class="gov-card">
           <div class="gov-info">
             <div class="gov-role">CABINET</div>
-            <div class="gov-name">BurgerMan</div>
-            <p class="gov-desc">Founding member of The Swampers. Currently serving in the cabinet.</p>
+            <div class="gov-name">Council Members</div>
+            <ul class="gov-members">
+              <li>BurgerMan</li>
+              <li>TTS Bot</li>
+              <li>Eric</li>
+              <li>Aby</li>
+            </ul>
+            <p class="gov-desc">Founding council of The Swampers. Advises the head of state.</p>
           </div>
         </div>
 
@@ -385,9 +344,13 @@
         <svg class="discord-icon" viewBox="0 0 24 24"><use href="#i-chat"/></svg>
         <h2>JOIN OUR DISCORD</h2>
         <p>Chat with fellow Swampers, get raid alerts, attend frog council meetings, and stay in the loop.</p>
-        <a href="https://discord.gg/JtQ8c9pxyg" target="_blank" rel="noopener" class="btn btn-discord">
-          CLICK TO JOIN
-          <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
+        <!-- When server launches, restore href: https://discord.gg/JCM2B7ue4E -->
+        <a class="btn btn-discord btn-disabled" aria-disabled="true" tabindex="-1">
+          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          OPENS WHEN SERVER LAUNCHES
         </a>
       </div>
     </div>
