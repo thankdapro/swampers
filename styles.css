@@ -1147,7 +1147,7 @@ body::before {
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url('images/hero-swamp.jpeg');
+  background-image: url('hero-swamp.jpeg');
   background-size: cover;
   background-position: center;
   z-index: 0;
