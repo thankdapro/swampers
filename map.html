@@ -279,231 +279,48 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <header id="home" class="hero">
-    <div class="hero-image" role="img" aria-label="Minecraft swamp at sunset"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-grid-pattern"></div>
-    <div class="aurora">
-      <div class="aurora-blob aurora-1"></div>
-      <div class="aurora-blob aurora-2"></div>
-      <div class="aurora-blob aurora-3"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        MINECRAFT NATION &middot; EST. DAY 1
-      </div>
-      <h1 class="hero-title">THE <span class="swamp-word">SWAMPERS</span></h1>
-      <p class="hero-sub">A Nation Forged in Mud, Moss &amp; Mangrove</p>
-      <p class="hero-tag motto">&ldquo;In Murk we Trust.&rdquo;</p>
-      <div class="hero-btns">
-        <!-- When server launches, restore href: https://discord.gg/JCM2B7ue4E -->
-        <a class="btn btn-primary btn-disabled" aria-disabled="true" tabindex="-1">
-          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          JOIN THE NATION
-        </a>
-        <p class="hero-locked-note">Opens when immigration laws are set &amp; the server launches.</p>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <svg class="icon-arrow-v" viewBox="0 0 24 24"><use href="#i-arrow-down"/></svg>
-      SCROLL
-      <svg class="icon-arrow-v" viewBox="0 0 24 24"><use href="#i-arrow-down"/></svg>
-    </div>
-  </header>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item"><svg viewBox="0 0 16 16"><use href="#i-frog"/></svg> IN MURK WE TRUST</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-leaf"/></svg> 200+ CITIZENS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-building"/></svg> 5+ SETTLEMENTS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg> WEEKLY GAZETTE</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg> ACTIVE DISCORD</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-scroll"/></svg> ENROLL TODAY</span>
-      <span class="marquee-dot">&bull;</span>
-
-      <span class="marquee-item"><svg viewBox="0 0 16 16"><use href="#i-frog"/></svg> IN MURK WE TRUST</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-leaf"/></svg> 200+ CITIZENS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-building"/></svg> 5+ SETTLEMENTS</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg> WEEKLY GAZETTE</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg> ACTIVE DISCORD</span>
-      <span class="marquee-dot">&bull;</span>
-      <span class="marquee-item"><svg viewBox="0 0 24 24"><use href="#i-scroll"/></svg> ENROLL TODAY</span>
-      <span class="marquee-dot">&bull;</span>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section class="about">
+  <main class="page page-map">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-text">
-          <h2 class="section-title section-title-left">
-            <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-leaf"/></svg>
-            Welcome to the Murklands
-          </h2>
-          <p>The Swampers are a proud nation of pioneers, fishermen, and frog-tamers who have carved out a home deep in the boggy heart of the server. Where others see mud, we see opportunity. Where others see darkness, we see witch huts to raid.</p>
-          <p>Our roots run as deep as the mangrove trees, and our walls are built from the swamp itself. Join us, and become part of something slimy &mdash; and great.</p>
-          <div class="stats">
-            <div class="stat"><strong data-count="200" data-suffix="+">0</strong><span>Citizens</span></div>
-            <div class="stat"><strong data-count="5" data-suffix="+">0</strong><span>Settlements</span></div>
-          </div>
+      <header class="page-head">
+        <div class="page-eyebrow">
+          <span class="page-eyebrow-dot"></span>
+          Map &middot; not finalised
         </div>
-        <div class="about-img">
-          <div class="frame">
-            <img class="frame-inner" src="swamp-water.webp" alt="Minecraft swamp at sunset with reflected water" loading="lazy" />
-          </div>
+        <h1 class="page-title">The Murklands &mdash; Server Map</h1>
+        <p class="page-sub">Drag to pan, scroll or slide to zoom. Biomes, nations, the lot.</p>
+      </header>
+
+      <div class="map-controls" role="toolbar" aria-label="Map controls">
+        <button type="button" class="mctrl-btn" id="mctrlOut" aria-label="Zoom out">&minus;</button>
+        <input type="range" id="mctrlSlider" class="mctrl-slider" min="0.5" max="3" step="0.1" value="1" aria-label="Map zoom" />
+        <button type="button" class="mctrl-btn" id="mctrlIn" aria-label="Zoom in">+</button>
+        <span class="mctrl-value" id="mctrlValue">1.0x</span>
+        <button type="button" class="mctrl-reset" id="mctrlReset">Reset</button>
+      </div>
+
+      <div class="map-stage" id="mapStage">
+        <div class="map-pan" id="mapPan">
+          <img class="map-page-img" id="mapPageImg" src="server-map.png" alt="Server world map" draggable="false" />
         </div>
+        <div class="map-hint">drag to pan &middot; scroll to zoom</div>
+      </div>
+
+      <div class="map-legend">
+        <span class="legend-title">Legend</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#3a7a3a"></span>Forest</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#e8a8c8"></span>Cherry Grove</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#c89860"></span>Mesa</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#7a6a3a"></span>Savanna</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#5a7a3a"></span>Swamp</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#3a5a2a"></span>Dark Oak</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#3a8a4a"></span>Jungle</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#d8c860"></span>Desert</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#e8e8e8"></span>Snow Mountains</span>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!-- NEWSPAPERS -->
-  <section id="news" class="news">
-    <div class="section-bg" style="background-image: url('swamp-foggy.jpeg');"></div>
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-newspaper"/></svg>
-        Newspapers
-      </h2>
-      <p class="section-sub">Got a paper? We'll feature it.</p>
-
-      <div class="news-cta">
-        <div class="news-cta-icon">
-          <svg viewBox="0 0 24 24"><use href="#i-newspaper"/></svg>
-        </div>
-        <h3 class="news-cta-title">Want your paper to show up here?</h3>
-        <p class="news-cta-desc">Submit your nation's paper through the form and it'll be featured in this section.</p>
-        <a href="https://forms.gle/evd3j6DqZv7u6Ley9" target="_blank" rel="noopener" class="btn btn-primary btn-large">
-          SUBMIT PAPER
-          <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- MAP TEASER (full map lives on map.html) -->
-  <section id="towns" class="towns">
-    <div class="container">
-      <a class="page-teaser" href="map.html">
-        <div class="page-teaser-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3z"/><path d="M9 3v15M15 6v15"/></svg>
-        </div>
-        <div class="page-teaser-body">
-          <div class="page-teaser-eyebrow">Server Map</div>
-          <h2 class="page-teaser-title">Explore the Murklands</h2>
-          <p class="page-teaser-text">Drag to pan, slide to zoom. Biomes, nations, and borders &mdash; all in one place.</p>
-        </div>
-        <div class="page-teaser-cta">
-          Open map
-          <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-        </div>
-      </a>
-    </div>
-  </section>
-
-
-  <!-- FORMS -->
-  <section id="forms" class="forms">
-    <div class="section-bg" style="background-image: url('swamp-forest.webp');"></div>
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="icon-title" viewBox="0 0 24 24"><use href="#i-scroll"/></svg>
-        Forms
-      </h2>
-      <p class="section-sub">Official Swamper paperwork &mdash; fill out, submit, get murky.</p>
-
-      <div class="forms-grid">
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-scroll"/></svg>
-          <h3 class="form-title">ROLE ENROLLMENT</h3>
-          <p class="form-desc">Apply for an official role in the nation &mdash; from government cabinet to specialized civilian work.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Government role</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Cabinet / ministry seat</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Specialized civilian job</li>
-          </ul>
-          <a href="https://forms.gle/JLR2vx3ZUDLES3Sq7" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            FILL OUT
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-bulb"/></svg>
-          <h3 class="form-title">NATION IDEAS</h3>
-          <p class="form-desc">Got a vision for the swamp? Propose new buildings, events, laws, or expansions.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>New build proposals</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Event suggestions</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Law &amp; policy ideas</li>
-          </ul>
-          <a href="https://forms.gle/VL9W7FVaeqD2aqKe7" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            SUBMIT IDEA
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-        <div class="form-card">
-          <svg class="form-icon" viewBox="0 0 24 24"><use href="#i-flag"/></svg>
-          <h3 class="form-title">PLAYER REPORT</h3>
-          <p class="form-desc">Witnessed griefing, theft, or a treaty violation? File a confidential report with the council.</p>
-          <ul class="form-list">
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Griefing &amp; theft</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Harassment</li>
-            <li><svg class="icon-check" viewBox="0 0 24 24"><use href="#i-check"/></svg>Treaty violations</li>
-          </ul>
-          <a href="https://forms.gle/HnAFFXXyVLVL4deA9" target="_blank" rel="noopener" class="btn btn-primary form-btn">
-            FILE REPORT
-            <svg class="icon-arrow" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- DISCORD -->
-  <section id="discord" class="discord">
-    <div class="container">
-      <div class="discord-card">
-        <div class="discord-status">
-          <span class="discord-status-dot"></span>
-          Coming soon
-        </div>
-        <svg class="discord-icon" viewBox="0 0 24 24"><use href="#i-chat"/></svg>
-        <h2>Join our Discord</h2>
-        <p>Chat with fellow Swampers, get raid alerts, attend frog council meetings, and stay in the loop.</p>
-        <!-- When server launches, restore href: https://discord.gg/JCM2B7ue4E -->
-        <a class="btn btn-discord btn-disabled" aria-disabled="true" tabindex="-1">
-          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          Opens when the server launches
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PAPER LIGHTBOX -->
+<!-- PAPER LIGHTBOX -->
   <div class="paper-modal" id="paperModal" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="paper-modal-close" aria-label="Close newspaper">&times;</button>
     <div class="paper-modal-inner">
