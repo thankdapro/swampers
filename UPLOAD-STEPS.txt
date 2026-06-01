@@ -1,0 +1,51 @@
+================================
+SWAMPERS — UPLOAD INSTRUCTIONS
+================================
+
+You should see exactly 7 files in this folder:
+
+  index.html         — main page
+  styles.css         — styling
+  script.js          — interactivity
+  hero-swamp.jpeg    — hero background
+  swamp-water.webp   — about section image
+  swamp-foggy.jpeg   — news section background
+  swamp-forest.webp  — forms section background
+
+================================
+UPLOAD TO GITHUB (overwrite everything)
+================================
+
+1. Go to your repo: https://github.com/thankdapro/swampers
+
+2. Important: delete the OLD index.html and styles.css FIRST
+   - Click on "index.html"
+   - Click the trash can icon (top right)
+   - Commit deletion
+   - Repeat for "styles.css"
+
+3. Upload the new files:
+   - On the repo main page click "Add file" -> "Upload files"
+   - Select ALL 7 files in this folder (Cmd+A in Finder)
+   - Drag them into the GitHub upload area
+   - Scroll down, click green "Commit changes" button
+
+4. Wait ~30 seconds for GitHub Pages to redeploy
+   (check the "github-pages" deployment in the right sidebar)
+
+5. Open your live site and HARD REFRESH:
+   - Mac: Cmd+Shift+R
+   - Windows: Ctrl+Shift+R
+
+================================
+HOW TO VERIFY IT WORKED
+================================
+
+After upload, on the repo page:
+  - index.html timestamp should say "now" or "0 minutes ago"
+  - styles.css timestamp should say "now" or "0 minutes ago"
+
+If timestamps still say "1 hour ago" or older, the upload didn't take.
+Try again, making sure to confirm the "Replace" prompt and commit.
+
+================================

@@ -249,21 +249,32 @@ function __swampersInit() {
   // ============================================
   // DVD SPEED SLIDER
   // ============================================
+  // Robust fallback: explicit class toggle on parent of any nested toggle group
+  // (works even when :has() style recalc lags on programmatic changes)
+  document.querySelectorAll('.toggle-with-child').forEach(group => {
+    const cb = group.querySelector('input[type="checkbox"]');
+    if (!cb) return;
+    const syncOpen = () => group.classList.toggle('is-open', cb.checked);
+    syncOpen();
+    cb.addEventListener('change', syncOpen);
+  });
+
   let dvdSpeedMultiplier = 1;
   const speedSlider = document.getElementById('t-dvd-speed');
   const speedValueEl = document.getElementById('dvdSpeedValue');
   if (speedSlider) {
     const stored = loadSettings();
-    const initialSpeed = stored.dvdSpeed || 1;
-    speedSlider.value = initialSpeed;
-    dvdSpeedMultiplier = parseInt(initialSpeed, 10);
+    const initialSpeed = parseFloat(stored.dvdSpeed) || 1;
+    const clamped = Math.min(3, Math.max(0.5, initialSpeed));
+    speedSlider.value = clamped;
+    dvdSpeedMultiplier = clamped;
     if (speedValueEl) {
-      speedValueEl.textContent = dvdSpeedMultiplier === 6 ? '!!' : dvdSpeedMultiplier + 'x';
+      speedValueEl.textContent = clamped.toFixed(1) + 'x';
     }
     speedSlider.addEventListener('input', () => {
-      dvdSpeedMultiplier = parseInt(speedSlider.value, 10);
+      dvdSpeedMultiplier = parseFloat(speedSlider.value);
       if (speedValueEl) {
-        speedValueEl.textContent = dvdSpeedMultiplier === 6 ? '!!' : dvdSpeedMultiplier + 'x';
+        speedValueEl.textContent = dvdSpeedMultiplier.toFixed(1) + 'x';
       }
       const s = loadSettings();
       s.dvdSpeed = dvdSpeedMultiplier;
@@ -308,9 +319,15 @@ function __swampersInit() {
   const logo = document.querySelector('.logo');
   const ribbits = ['*ribbit*', '*croak*', '*splash*', '*gloop*', '*BLORP*', '*shrek noises*'];
   if (logo) {
+    logo.style.cursor = 'pointer';
     let clickCount = 0;
     logo.addEventListener('click', (e) => {
-      if (!easterOn()) return;
+      // When easter eggs are off, the logo behaves as a Home link
+      if (!easterOn()) {
+        if (e && e.preventDefault) e.preventDefault();
+        window.location.href = 'index.html';
+        return;
+      }
       clickCount++;
       const msg = document.createElement('div');
       msg.textContent = clickCount === 7 ? 'In Murk we Trust.' : ribbits[Math.floor(Math.random() * ribbits.length)];
@@ -388,6 +405,119 @@ function __swampersInit() {
   // ============================================
   // DVD BOUNCER (frog bouncing around screen)
   // ============================================
+  // ============================================
+  // ADS SIDEBAR — size cycle + drag-to-move
+  // ============================================
+  const adsSidebar = document.getElementById('adsSidebar');
+  const adsGrip    = document.getElementById('adsSidebarGrip');
+  const adsSizeBtn = document.getElementById('adsSidebarSizeBtn');
+  const adsSizeLabel = document.getElementById('adsSidebarSizeLabel');
+
+  if (adsSidebar) {
+    const SIZES = ['s', 'm', 'l'];
+    const LABELS = { s: 'S', m: 'M', l: 'L' };
+    const ADS_KEY = 'swampers.adsSidebar';
+
+    function loadAdsState() {
+      try { return JSON.parse(localStorage.getItem(ADS_KEY) || '{}'); } catch { return {}; }
+    }
+    function saveAdsState(s) {
+      try { localStorage.setItem(ADS_KEY, JSON.stringify(s)); } catch {}
+    }
+    function applySize(size) {
+      SIZES.forEach(s => document.body.classList.toggle('ads-size-' + s, s === size));
+      if (adsSizeLabel) adsSizeLabel.textContent = LABELS[size];
+    }
+    function applyPos(x, y) {
+      adsSidebar.style.setProperty('--ads-x', x + 'px');
+      adsSidebar.style.setProperty('--ads-y', y + 'px');
+    }
+
+    const stored = loadAdsState();
+    const curSize = SIZES.includes(stored.size) ? stored.size : 'm';
+    applySize(curSize);
+    applyPos(stored.x || 0, stored.y || 0);
+
+    adsSizeBtn?.addEventListener('click', () => {
+      const cur = SIZES.find(s => document.body.classList.contains('ads-size-' + s)) || 'm';
+      const next = SIZES[(SIZES.indexOf(cur) + 1) % SIZES.length];
+      applySize(next);
+      const s = loadAdsState();
+      s.size = next;
+      saveAdsState(s);
+    });
+
+    // Drag-to-move via grip
+    let dragging = false, startX = 0, startY = 0, startTX = 0, startTY = 0;
+    adsGrip?.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      const s = loadAdsState();
+      startTX = s.x || 0;
+      startTY = s.y || 0;
+      startX = e.clientX;
+      startY = e.clientY;
+      adsGrip.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    adsGrip?.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const w = adsSidebar.offsetWidth;
+      const h = adsSidebar.offsetHeight;
+      // Compute nav-bottom (CSS var) — sidebar must stay below it
+      const navBottom = parseInt(getComputedStyle(document.body).getPropertyValue('--nav-bottom')) || 96;
+      // Current natural (untranslated) top — read from CSS via getBoundingClientRect minus current translate
+      const naturalTop = adsSidebar.getBoundingClientRect().top - (parseFloat(adsSidebar.style.getPropertyValue('--ads-y')) || 0);
+      const minY = navBottom + 8 - naturalTop;   // cannot go above nav-bottom
+      const maxY = window.innerHeight - naturalTop - h - 8;
+      const maxX = 0; // start glued to right edge
+      const minX = -(window.innerWidth - w - 40);
+      const newX = Math.max(minX, Math.min(maxX, startTX + dx));
+      const newY = Math.max(minY, Math.min(maxY, startTY + dy));
+      applyPos(newX, newY);
+    });
+    function endAdsDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      try { adsGrip.releasePointerCapture(e.pointerId); } catch {}
+      // Persist position
+      const x = parseFloat(adsSidebar.style.getPropertyValue('--ads-x')) || 0;
+      const y = parseFloat(adsSidebar.style.getPropertyValue('--ads-y')) || 0;
+      const s = loadAdsState();
+      s.x = x; s.y = y;
+      saveAdsState(s);
+    }
+    adsGrip?.addEventListener('pointerup', endAdsDrag);
+    adsGrip?.addEventListener('pointercancel', endAdsDrag);
+
+    // Double-click grip resets position
+    adsGrip?.addEventListener('dblclick', () => {
+      applyPos(0, 0);
+      const s = loadAdsState();
+      s.x = 0; s.y = 0;
+      saveAdsState(s);
+    });
+
+    // X close button — turns off the ads toggle (persists in main settings)
+    const adsCloseBtn = document.getElementById('adsSidebarCloseBtn');
+    adsCloseBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const adsToggle = document.getElementById('t-ads');
+      if (adsToggle && adsToggle.checked) {
+        adsToggle.checked = false;
+        adsToggle.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        // Fallback: directly remove the class + persist
+        document.body.classList.remove('ads-on');
+        const settings = loadSettings();
+        settings.ads = false;
+        saveSettings(settings);
+      }
+    });
+  }
+
   // ============================================
   // DEDICATED MAP PAGE — drag-to-pan + zoom controls
   // ============================================
@@ -470,14 +600,16 @@ function __swampersInit() {
       }
       const w = window.innerWidth - dvd.offsetWidth;
       const h = window.innerHeight - dvd.offsetHeight;
+      const navBottom = parseInt(getComputedStyle(document.body).getPropertyValue('--nav-bottom')) || 96;
+      const topMin = navBottom + 8; // stay below nav
       const speed = dvdSpeedMultiplier;
       x += baseVx * speed * dirX;
       y += baseVy * speed * dirY;
       let hit = false;
-      if (x <= 0)     { x = 0;  dirX = 1;  hit = true; }
-      if (x >= w)     { x = w;  dirX = -1; hit = true; }
-      if (y <= 0)     { y = 0;  dirY = 1;  hit = true; }
-      if (y >= h)     { y = h;  dirY = -1; hit = true; }
+      if (x <= 0)        { x = 0;        dirX = 1;  hit = true; }
+      if (x >= w)        { x = w;        dirX = -1; hit = true; }
+      if (y <= topMin)   { y = topMin;   dirY = 1;  hit = true; }
+      if (y >= h)        { y = h;        dirY = -1; hit = true; }
       if (hit) {
         colorIdx = (colorIdx + 1) % palette.length;
         dvd.style.setProperty('--dvd-color', palette[colorIdx]);
