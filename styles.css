@@ -921,6 +921,177 @@ body.dvd-on .dvd-bouncer { display: flex; }
 }
 
 /* ============================================
+   ART PAGE
+   ============================================ */
+.page-art { padding-bottom: 100px; }
+
+.artwork {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .artwork { grid-template-columns: 1fr; }
+}
+
+.artwork-frame {
+  margin: 0;
+  padding: 14px;
+  background: rgba(20, 32, 18, 0.55);
+  border: 1px solid rgba(168, 192, 96, 0.2);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.artwork-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  image-rendering: pixelated;
+  image-rendering: -webkit-optimize-contrast;
+  background: #1a2a18;
+}
+
+.artwork-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.artwork-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 5px 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--swamp-glow);
+  background: rgba(168, 192, 96, 0.08);
+  border: 1px solid rgba(168, 192, 96, 0.3);
+  border-radius: 999px;
+}
+.artwork-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--swamp-glow);
+  box-shadow: 0 0 6px var(--swamp-glow);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+.artwork-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: #e8f0d0;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.artwork-byline {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  margin-top: -4px;
+}
+.artwork-byline-label {
+  font-size: 0.85rem;
+  color: #8aa078;
+}
+.artwork-byline-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--swamp-glow);
+  letter-spacing: 0.2px;
+}
+
+.artwork-desc {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #b8c8a0;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.artwork-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.artwork-chip {
+  display: inline-flex;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--swamp-glow);
+  background: rgba(168, 192, 96, 0.08);
+  border: 1px solid rgba(168, 192, 96, 0.22);
+  border-radius: 999px;
+}
+
+/* Submit-your-art CTA */
+.artwork-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 600px;
+  margin: 56px auto 0;
+  padding: 20px 24px;
+  background: rgba(20, 32, 18, 0.4);
+  border: 1px dashed rgba(168, 192, 96, 0.3);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: all 0.22s ease;
+}
+.artwork-cta:hover {
+  background: rgba(26, 42, 24, 0.6);
+  border-color: var(--swamp-glow);
+  border-style: solid;
+  transform: translateY(-2px);
+}
+.artwork-cta-icon {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(168, 192, 96, 0.12);
+  border: 1px solid rgba(168, 192, 96, 0.3);
+  color: var(--swamp-glow);
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.artwork-cta-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e8f0d0;
+  letter-spacing: -0.2px;
+}
+.artwork-cta-sub {
+  font-size: 0.85rem;
+  color: #8aa078;
+  margin-top: 2px;
+}
+
+/* ============================================
    ELECTION PAGE
    ============================================ */
 .page-election { padding-bottom: 100px; }
@@ -2439,13 +2610,16 @@ body::before {
 }
 
 .logo-icon {
-  width: 28px;
-  height: 28px;
-  image-rendering: pixelated;
-  shape-rendering: crispEdges;
-  filter: drop-shadow(0 0 6px rgba(168, 192, 96, 0.6));
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  image-rendering: auto;
+  shape-rendering: auto;
+  filter: drop-shadow(0 0 8px rgba(168, 192, 96, 0.45));
   flex-shrink: 0;
 }
+img.logo-icon { display: block; }
 
 /* ============================================
    SVG ICONS
