@@ -139,6 +139,77 @@ function __swampersInit() {
   document.head.appendChild(style);
 
   // ============================================
+  // MOD APPLICATION — local-timezone deadline, live countdown, auto-hide
+  // ============================================
+  const modAppSection = document.getElementById('modAppSection');
+  if (modAppSection) {
+    const deadlineISO = modAppSection.dataset.deadline; // "2026-06-12T19:00:00+01:00"
+    const deadline = new Date(deadlineISO);
+    const localEl = document.getElementById('modAppDeadlineLocal');
+    const countdownEl = document.getElementById('modAppCountdown');
+
+    // Format the deadline in the user's locale + timezone
+    function formatLocal() {
+      if (!localEl) return;
+      try {
+        const opts = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+        localEl.textContent = 'Your time: ' + deadline.toLocaleString(undefined, opts);
+      } catch (e) {
+        localEl.textContent = '';
+      }
+    }
+
+    function tick() {
+      const now = new Date();
+      const ms = deadline - now;
+      // After deadline → hide the whole section
+      if (ms <= 0) {
+        modAppSection.hidden = true;
+        modAppSection.style.display = 'none';
+        return false;
+      }
+      // Build countdown
+      const days = Math.floor(ms / 86400000);
+      const hours = Math.floor((ms % 86400000) / 3600000);
+      const mins = Math.floor((ms % 3600000) / 60000);
+      let txt;
+      if (days >= 2) {
+        txt = days + ' days, ' + hours + ' hours remaining';
+      } else if (days >= 1) {
+        txt = '1 day, ' + hours + ' hours, ' + mins + ' min remaining';
+      } else if (hours >= 1) {
+        txt = hours + 'h ' + mins + 'm remaining';
+      } else {
+        const secs = Math.floor((ms % 60000) / 1000);
+        txt = mins + 'm ' + secs + 's remaining';
+      }
+      if (countdownEl) {
+        countdownEl.textContent = txt;
+        countdownEl.classList.toggle('is-urgent', days < 2 && hours >= 1);
+        countdownEl.classList.toggle('is-final', days === 0 && hours < 1);
+      }
+      return true;
+    }
+
+    formatLocal();
+    if (tick()) {
+      // Update once a minute (or once a second when we're in the final hour)
+      let intervalId = setInterval(() => {
+        const stillRunning = tick();
+        if (!stillRunning) clearInterval(intervalId);
+        else {
+          const ms = deadline - new Date();
+          if (ms < 3600000 && intervalId._second !== true) {
+            clearInterval(intervalId);
+            intervalId = setInterval(tick, 1000);
+            intervalId._second = true;
+          }
+        }
+      }, 60000);
+    }
+  }
+
+  // ============================================
   // BETA BANNER — dismissible, persists in localStorage
   // ============================================
   const betaBanner = document.getElementById('betaBanner');
@@ -165,7 +236,7 @@ function __swampersInit() {
     { id: 't-serious',     key: 'serious',     bodyClass: 'serious',     default: false },
     { id: 't-easter',      key: 'easter',      bodyClass: 'easter-on',   default: true  },
     { id: 't-dvd',         key: 'dvd',         bodyClass: 'dvd-on',      default: false },
-    { id: 't-ads',         key: 'ads',         bodyClass: 'ads-on',      default: false },
+    { id: 't-ads',         key: 'ads',         bodyClass: 'ads-on',      default: true  },
     { id: 't-frog-cursor', key: 'frogCursor',  bodyClass: 'frog-cursor', default: false }
   ];
 
@@ -405,18 +476,16 @@ function __swampersInit() {
   // ============================================
   // DVD BOUNCER (frog bouncing around screen)
   // ============================================
+  // ADS MARQUEE — size cycle + close
   // ============================================
-  // ADS SIDEBAR — size cycle + drag-to-move
-  // ============================================
-  const adsSidebar = document.getElementById('adsSidebar');
-  const adsGrip    = document.getElementById('adsSidebarGrip');
-  const adsSizeBtn = document.getElementById('adsSidebarSizeBtn');
+  const adsMarquee   = document.getElementById('adsMarquee');
+  const adsSizeBtn   = document.getElementById('adsSidebarSizeBtn');
   const adsSizeLabel = document.getElementById('adsSidebarSizeLabel');
 
-  if (adsSidebar) {
+  if (adsMarquee) {
     const SIZES = ['s', 'm', 'l'];
     const LABELS = { s: 'S', m: 'M', l: 'L' };
-    const ADS_KEY = 'swampers.adsSidebar';
+    const ADS_KEY = 'swampers.adsMarquee';
 
     function loadAdsState() {
       try { return JSON.parse(localStorage.getItem(ADS_KEY) || '{}'); } catch { return {}; }
@@ -428,15 +497,10 @@ function __swampersInit() {
       SIZES.forEach(s => document.body.classList.toggle('ads-size-' + s, s === size));
       if (adsSizeLabel) adsSizeLabel.textContent = LABELS[size];
     }
-    function applyPos(x, y) {
-      adsSidebar.style.setProperty('--ads-x', x + 'px');
-      adsSidebar.style.setProperty('--ads-y', y + 'px');
-    }
 
     const stored = loadAdsState();
     const curSize = SIZES.includes(stored.size) ? stored.size : 'm';
     applySize(curSize);
-    applyPos(stored.x || 0, stored.y || 0);
 
     adsSizeBtn?.addEventListener('click', () => {
       const cur = SIZES.find(s => document.body.classList.contains('ads-size-' + s)) || 'm';
@@ -444,58 +508,6 @@ function __swampersInit() {
       applySize(next);
       const s = loadAdsState();
       s.size = next;
-      saveAdsState(s);
-    });
-
-    // Drag-to-move via grip
-    let dragging = false, startX = 0, startY = 0, startTX = 0, startTY = 0;
-    adsGrip?.addEventListener('pointerdown', (e) => {
-      dragging = true;
-      const s = loadAdsState();
-      startTX = s.x || 0;
-      startTY = s.y || 0;
-      startX = e.clientX;
-      startY = e.clientY;
-      adsGrip.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    adsGrip?.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      const w = adsSidebar.offsetWidth;
-      const h = adsSidebar.offsetHeight;
-      // Compute nav-bottom (CSS var) — sidebar must stay below it
-      const navBottom = parseInt(getComputedStyle(document.body).getPropertyValue('--nav-bottom')) || 96;
-      // Current natural (untranslated) top — read from CSS via getBoundingClientRect minus current translate
-      const naturalTop = adsSidebar.getBoundingClientRect().top - (parseFloat(adsSidebar.style.getPropertyValue('--ads-y')) || 0);
-      const minY = navBottom + 8 - naturalTop;   // cannot go above nav-bottom
-      const maxY = window.innerHeight - naturalTop - h - 8;
-      const maxX = 0; // start glued to right edge
-      const minX = -(window.innerWidth - w - 40);
-      const newX = Math.max(minX, Math.min(maxX, startTX + dx));
-      const newY = Math.max(minY, Math.min(maxY, startTY + dy));
-      applyPos(newX, newY);
-    });
-    function endAdsDrag(e) {
-      if (!dragging) return;
-      dragging = false;
-      try { adsGrip.releasePointerCapture(e.pointerId); } catch {}
-      // Persist position
-      const x = parseFloat(adsSidebar.style.getPropertyValue('--ads-x')) || 0;
-      const y = parseFloat(adsSidebar.style.getPropertyValue('--ads-y')) || 0;
-      const s = loadAdsState();
-      s.x = x; s.y = y;
-      saveAdsState(s);
-    }
-    adsGrip?.addEventListener('pointerup', endAdsDrag);
-    adsGrip?.addEventListener('pointercancel', endAdsDrag);
-
-    // Double-click grip resets position
-    adsGrip?.addEventListener('dblclick', () => {
-      applyPos(0, 0);
-      const s = loadAdsState();
-      s.x = 0; s.y = 0;
       saveAdsState(s);
     });
 
@@ -509,7 +521,6 @@ function __swampersInit() {
         adsToggle.checked = false;
         adsToggle.dispatchEvent(new Event('change', { bubbles: true }));
       } else {
-        // Fallback: directly remove the class + persist
         document.body.classList.remove('ads-on');
         const settings = loadSettings();
         settings.ads = false;

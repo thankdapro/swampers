@@ -184,7 +184,7 @@
           </div>
         </div>
         <label class="toggle">
-          <input type="checkbox" id="t-ads" />
+          <input type="checkbox" id="t-ads" checked />
           <span class="toggle-slider"></span>
           <span class="toggle-label">
             <strong>Sidebar ads</strong>
@@ -227,64 +227,153 @@
   <!-- ============================================
        ADS SIDEBAR (toggle-controlled)
        ============================================ -->
-      <aside id="adsSidebar" class="ads-sidebar" aria-label="Ad space">
-    <div class="ads-sidebar-controls">
-      <div class="ads-sidebar-grip" id="adsSidebarGrip" title="Drag to move" aria-label="Drag to move sidebar">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
+      <aside id="adsMarquee" class="ads-marquee" aria-label="Sponsored ads">
+    <div class="ads-marquee-controls">
+      <div class="ads-marquee-head">
+        <span class="ads-marquee-dot"></span> Ad space &middot; live
       </div>
-      <div class="ads-sidebar-head">Ad space</div>
-      <button type="button" class="ads-sidebar-size-btn" id="adsSidebarSizeBtn" aria-label="Cycle sidebar size" title="Cycle size">
+      <button type="button" class="ads-marquee-size-btn" id="adsSidebarSizeBtn" aria-label="Cycle marquee size" title="Cycle size">
         <span id="adsSidebarSizeLabel">M</span>
       </button>
-      <button type="button" class="ads-sidebar-close-btn" id="adsSidebarCloseBtn" aria-label="Close sidebar and disable ads" title="Close (disables ads)">&times;</button>
+      <button type="button" class="ads-marquee-close-btn" id="adsSidebarCloseBtn" aria-label="Close marquee and disable ads" title="Close (disables ads)">&times;</button>
     </div>
 
-    <div class="ad-card ad-card--recruit">
-      <div class="ad-tag">For rent</div>
-      <div class="ad-title">Looking for someone to post ads</div>
-      <p class="ad-body">Got a shop, build, event, or service in the Murklands? Get featured in this sidebar.</p>
-      <div class="ad-price">
-        <span class="ad-price-amount">7</span>
-        <span class="ad-price-unit">iron ingots / week</span>
+    <div class="ads-marquee-viewport">
+      <div class="ads-marquee-track">
+        <!-- Set A -->
+        <a class="ad-mini ad-mini--sponsor" href="https://discord.gg/NWSeatn3tA" target="_blank" rel="noopener">
+          <img class="ad-mini-img" src="barlaas.png" alt="Barlaas banner" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Sponsored</div>
+            <div class="ad-mini-title">Join Barlaas</div>
+            <div class="ad-mini-cta">Learn more &rarr;</div>
+          </div>
+        </a>
+
+        <a class="ad-mini ad-mini--sponsor ad-mini--propaganda" href="https://discord.gg/JCM2B7ue4E" target="_blank" rel="noopener">
+          <img class="ad-mini-img" src="propaganda.png" alt="UI for Squid: I want to adopt you!" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Sponsored</div>
+            <div class="ad-mini-title">Get adopted by UI For Squid</div>
+            <div class="ad-mini-cta">Join Today &rarr;</div>
+          </div>
+        </a>
+
+        <a class="ad-mini ad-mini--campaign" href="election.html">
+          <img class="ad-mini-img" src="loading4monarch.png" alt="I WANT YOU — Vote Loading for Monarch" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">Loading wants YOU</div>
+            <div class="ad-mini-cta">See the ballot &rarr;</div>
+          </div>
+        </a>
+
+        <a class="ad-mini ad-mini--endorsement" href="election.html">
+          <img class="ad-mini-img ad-mini-img--avatar" src="aby4monarch.png" alt="Aby" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">ABY FOR MONARCH</div>
+            <div class="ad-mini-cta">View candidates &rarr;</div>
+          </div>
+        </a>
+
+        <a class="ad-mini ad-mini--campaign" href="election.html">
+          <img class="ad-mini-img" src="loading4monarch-2.png" alt="A Warrior of the People — Loading for Monarch" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">A Warrior of the People</div>
+            <div class="ad-mini-cta">See the ballot &rarr;</div>
+          </div>
+        </a>
+
+        <div class="ad-mini ad-mini--recruit">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">For rent</div>
+            <div class="ad-mini-title">Want this slot?</div>
+            <div class="ad-mini-body">7 iron / week. DM Thankdapro.</div>
+          </div>
+        </div>
+
+        <div class="ad-mini ad-mini--special">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">Special offer</div>
+            <div class="ad-mini-title">1 IRON if it&rsquo;s for propaganda</div>
+            <div class="ad-mini-body">Campaign rate &middot; DM Thankdapro</div>
+          </div>
+        </div>
+
+        <div class="ad-mini ad-mini--secret" data-easter="true">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">???</div>
+            <div class="ad-mini-title">In Murk we Trust.</div>
+            <div class="ad-mini-body">An onion has many layers.</div>
+          </div>
+        </div>
+
+        <!-- Set B (duplicate for seamless loop) -->
+        <a class="ad-mini ad-mini--sponsor" href="https://discord.gg/NWSeatn3tA" target="_blank" rel="noopener" aria-hidden="true">
+          <img class="ad-mini-img" src="barlaas.png" alt="" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Sponsored</div>
+            <div class="ad-mini-title">Join Barlaas</div>
+            <div class="ad-mini-cta">Learn more &rarr;</div>
+          </div>
+        </a>
+        <a class="ad-mini ad-mini--sponsor ad-mini--propaganda" href="https://discord.gg/JCM2B7ue4E" target="_blank" rel="noopener" aria-hidden="true">
+          <img class="ad-mini-img" src="propaganda.png" alt="" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Sponsored</div>
+            <div class="ad-mini-title">Get adopted by UI For Squid</div>
+            <div class="ad-mini-cta">Join Today &rarr;</div>
+          </div>
+        </a>
+        <a class="ad-mini ad-mini--campaign" href="election.html" aria-hidden="true">
+          <img class="ad-mini-img" src="loading4monarch.png" alt="" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">Loading wants YOU</div>
+            <div class="ad-mini-cta">See the ballot &rarr;</div>
+          </div>
+        </a>
+        <a class="ad-mini ad-mini--endorsement" href="election.html" aria-hidden="true">
+          <img class="ad-mini-img ad-mini-img--avatar" src="aby4monarch.png" alt="" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">ABY FOR MONARCH</div>
+            <div class="ad-mini-cta">View candidates &rarr;</div>
+          </div>
+        </a>
+        <a class="ad-mini ad-mini--campaign" href="election.html" aria-hidden="true">
+          <img class="ad-mini-img" src="loading4monarch-2.png" alt="" loading="lazy" />
+          <div class="ad-mini-text">
+            <div class="ad-mini-tag">Campaign</div>
+            <div class="ad-mini-title">A Warrior of the People</div>
+            <div class="ad-mini-cta">See the ballot &rarr;</div>
+          </div>
+        </a>
+        <div class="ad-mini ad-mini--recruit" aria-hidden="true">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">For rent</div>
+            <div class="ad-mini-title">Want this slot?</div>
+            <div class="ad-mini-body">7 iron / week. DM Thankdapro.</div>
+          </div>
+        </div>
+        <div class="ad-mini ad-mini--special" aria-hidden="true">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">Special offer</div>
+            <div class="ad-mini-title">1 IRON if it&rsquo;s for propaganda</div>
+            <div class="ad-mini-body">Campaign rate &middot; DM Thankdapro</div>
+          </div>
+        </div>
+        <div class="ad-mini ad-mini--secret" aria-hidden="true">
+          <div class="ad-mini-text ad-mini-text--full">
+            <div class="ad-mini-tag">???</div>
+            <div class="ad-mini-title">In Murk we Trust.</div>
+            <div class="ad-mini-body">An onion has many layers.</div>
+          </div>
+        </div>
       </div>
-      <div class="ad-cta">DM Thankdapro &rarr;</div>
     </div>
-
-    <a class="ad-card ad-card--sponsor" href="https://discord.gg/NWSeatn3tA" target="_blank" rel="noopener">
-      <div class="ad-tag">Sponsored</div>
-      <img class="ad-img" src="barlaas.png" alt="Barlaas banner" />
-      <div class="ad-title">Join Barlaas</div>
-      <p class="ad-body">Secure your future &amp; your voice: the autonomous sanctuary where your property is sovereign, your growth is limitless, and every citizen gets a vote.</p>
-      <div class="ad-cta">Learn more &rarr;</div>
-    </a>
-
-    <a class="ad-card ad-card--sponsor ad-card--propaganda" href="https://discord.gg/JCM2B7ue4E" target="_blank" rel="noopener">
-      <div class="ad-tag">Sponsored</div>
-      <img class="ad-img ad-img--tall" src="propaganda.png" alt="UI for Squid: I want to adopt you!" />
-      <div class="ad-title">Get adopted by UI For Squid</div>
-      <p class="ad-body">The President is recruiting. DM to be adopted into the Swamper family. <span aria-hidden="true">&#10084;</span></p>
-      <div class="ad-cta">Join Today &rarr;</div>
-    </a>
-
-    <div class="ad-card ad-card--empty ad-fillerable">
-      <div class="ad-tag">Your ad here</div>
-      <div class="ad-title">[ space available ]</div>
-      <p class="ad-body">7 iron ingots a week.</p>
-    </div>
-
-    <div class="ad-card ad-card--empty ad-fillerable">
-      <div class="ad-tag">Your ad here</div>
-      <div class="ad-title">[ space available ]</div>
-      <p class="ad-body">7 iron ingots a week.</p>
-    </div>
-
-    <div class="ad-card ad-card--secret ad-fillerable" data-easter="true">
-      <div class="ad-tag">???</div>
-      <div class="ad-title">In Murk we Trust.</div>
-      <p class="ad-body">An onion has many layers. So does the constitution.</p>
-    </div>
-
-    <div class="ad-footer">Drag grip to move &middot; tap size to resize &middot; disable in Settings.</div>
   </aside>
 
   <!-- ============================================
