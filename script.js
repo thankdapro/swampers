@@ -401,7 +401,7 @@ function __swampersInit() {
       }
       clickCount++;
       const msg = document.createElement('div');
-      msg.textContent = clickCount === 7 ? 'In Murk we Trust.' : ribbits[Math.floor(Math.random() * ribbits.length)];
+      msg.textContent = clickCount === 7 ? 'In Porky we Trust.' : ribbits[Math.floor(Math.random() * ribbits.length)];
       msg.style.cssText = `
         position: fixed;
         top: ${e.clientY}px;
@@ -440,7 +440,7 @@ function __swampersInit() {
     const o = document.createElement('div');
     o.className = 'shrek-overlay';
     o.innerHTML = `
-      <div class="shrek-motto">&ldquo;In Murk we Trust.&rdquo;</div>
+      <div class="shrek-motto">&ldquo;In Porky we Trust.&rdquo;</div>
       <div class="shrek-sub">Onions have layers. So do nations.</div>
     `;
     o.style.cssText = `
